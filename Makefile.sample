@@ -42,4 +42,6 @@ all: help
 
 
 -include $(MAKE_DIR)features/formatting.mk
+
+-include $(MAKE_DIR)features/debugging.mk
 -include $(MAKE_DIR)features/helping.mk
