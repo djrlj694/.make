@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v2.3.1
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-builtin-literals
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: name-tests-test
+      - id: sort-simple-yaml
+      - id: trailing-whitespace
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-go
+    rev: v1.0.1
+    hooks:
+    - id: checkmake
