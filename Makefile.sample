@@ -1,0 +1,45 @@
+# Copyright © 2020 djrlj694.dev. All rights reserved.
+# =========================================================================== #
+# PROGRAM: Makefile
+# AUTHORS: Robert (Bob) L. Jones
+# CREATED: 25SEP2020
+# REVISED: 25SEP2020
+# =========================================================================== #
+
+
+# =========================================================================== #
+# EXTERNAL CONSTANTS
+# =========================================================================== #
+
+
+# -- Make -- #
+
+# Name of the main makefile.
+MAKEFILE = $(firstword $(MAKEFILE_LIST))
+
+# Path of the directory containing the main makefile.
+MAKEFILE_DIR ?= $(dir $(realpath $(MAKEFILE)))
+
+# Path of the directory containing secondary makefiles.
+MAKE_DIR ?= $(MAKEFILE_DIR).make/
+
+
+# ============================================================================ #
+# PHONY TARGETS
+# ============================================================================ #
+
+
+# -- Main Targets -- #
+
+.PHONY: all clean init test
+
+all: help
+
+
+# =========================================================================== #
+# FEATURE DEPENDENCIES
+# =========================================================================== #
+
+
+-include $(MAKE_DIR)features/formatting.mk
+-include $(MAKE_DIR)features/helping.mk
