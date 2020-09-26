@@ -3,7 +3,7 @@
 # PROGRAM: formatting.mk
 # AUTHORS: Robert (Bob) L. Jones
 # CREATED: 25SEP2020
-# REVISED: 25SEP2020
+# REVISED: 26SEP2020
 # =========================================================================== #
 
 
@@ -47,5 +47,6 @@ dir_var = $(FG_CYAN)$(@D)$(RESET)
 file_var = $(FG_CYAN)$(@F)$(RESET)
 subdir_var = $(FG_CYAN)$(shell basename $(@D))$(RESET)
 
-# Color-formatted name of the current makefile target being run.
+# Color-formatted names of makefile automatic variables.
+prereq_var = $(FG_CYAN)$<$(RESET)
 target_var = $(FG_CYAN)$@$(RESET)
