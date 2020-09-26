@@ -3,7 +3,7 @@
 # PROGRAM: debugging.mk
 # AUTHORS: Robert (Bob) L. Jones
 # CREATED: 25SEP2020
-# REVISED: 25SEP2020
+# REVISED: 26SEP2020
 # =========================================================================== #
 
 
@@ -17,10 +17,6 @@
 # A list of makefile variables to show when testing/debugging.
 VARIABLES_TO_SHOW := MAKE_DIR MAKEFILE MAKEFILE_DIR MAKEFILE_LIST
 VARIABLES_TO_SHOW += PWD
-
-# -- Filesystem -- #
-
-LOG := make.log
 
 # -- Result Strings -- #
 
@@ -67,16 +63,10 @@ endef
 
 # -- Main Targets -- #
 
-.PHONY: debug log
+.PHONY: debug
 
 ## debug: Completes all debugging activities.
 debug: debug-vars-some debug-dirs-tree
-
-## log: Shows the most recently generated log.
-log: $(LOG)
-	@echo "Showing log $<:"
-	@echo
-	@cat $(LOG)
 
 # -- Prerequisites for "debug" Target -- #
 
@@ -99,15 +89,3 @@ debug-vars-all:
 debug-vars-some:
 	@echo
 	$(foreach v, $(VARIABLES_TO_SHOW), $(info $(v) = $($(v))))
-
-
-# =========================================================================== #
-# INTERMEDIATE TARGETS
-# =========================================================================== #
-
-
-.INTERMEDIATE: $(LOG)
-
-# Makes a temporary file capturring a shell command error.
-$(LOG):
-	@touch $@

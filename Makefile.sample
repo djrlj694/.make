@@ -45,3 +45,4 @@ all: help
 
 -include $(MAKE_DIR)features/debugging.mk
 -include $(MAKE_DIR)features/helping.mk
+-include $(MAKE_DIR)features/logging.mk
