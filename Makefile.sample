@@ -3,7 +3,7 @@
 # PROGRAM: Makefile
 # AUTHORS: Robert (Bob) L. Jones
 # CREATED: 25SEP2020
-# REVISED: 25SEP2020
+# REVISED: 28SEP2020
 # =========================================================================== #
 
 
@@ -54,3 +54,11 @@ all: help
 -include $(MAKE_DIR)features/debugging.mk
 -include $(MAKE_DIR)features/helping.mk
 -include $(MAKE_DIR)features/logging.mk
+
+
+# =========================================================================== #
+# PLATFORM DEPENDENCIES
+# =========================================================================== #
+
+
+-include $(MAKE_DIR)platforms/GitHub.mk
