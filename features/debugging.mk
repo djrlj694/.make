@@ -8,6 +8,17 @@
 
 
 # =========================================================================== #
+# EXTERNAL CONSTANTS
+# =========================================================================== #
+
+
+# -- Debugging & Error Capture -- #
+
+# 0 = false, 1 = true
+VERBOSE ?= 0
+
+
+# =========================================================================== #
 # INTERNAL CONSTANTS
 # =========================================================================== #
 
@@ -16,7 +27,7 @@
 
 # A list of makefile variables to show when testing/debugging.
 VARIABLES_TO_SHOW := MAKE_DIR MAKEFILE MAKEFILE_DIR MAKEFILE_LIST
-VARIABLES_TO_SHOW += PWD
+VARIABLES_TO_SHOW += PWD VERBOSE
 
 # -- Result Strings -- #
 
