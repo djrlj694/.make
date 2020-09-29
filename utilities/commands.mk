@@ -15,10 +15,20 @@
 # -- Commands -- #
 
 # Command prefix for transferring data.
-CURL := curl --silent --fail --show-error --location --output /dev/null
+CURL := curl --location --fail --show-error
+ifeq ($(VERBOSE),0)
+CURL += --silent --output /dev/null
+endif
+
 
 # Command prefix for creating directores.
 MKDIR := mkdir -p
+ifneq ($(VERBOSE),0)
+MKDIR += -v
+endif
 
 # Command prefix for removing directores/files.
 RM := rm -rf
+ifneq ($(VERBOSE),0)
+RM += -v
+endif
