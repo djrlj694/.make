@@ -3,7 +3,7 @@
 # PROGRAM: GitHub.mk
 # AUTHORS: Robert (Bob) L. Jones
 # CREATED: 28SEP2020
-# REVISED: 28SEP2020
+# REVISED: 29SEP2020
 # =========================================================================== #
 
 
@@ -79,7 +79,6 @@ docs-github: $(GITHUB_FILES)
 
 ## init-github: Completes all initial Github setup activites.
 init-github:
-	@$(CURL) --user $(GH_USER) $(GH_API_URL) \
-	--data '{$(GH_DATA)}'; \
-	printf "Initializing GitHub repository..."; \
-	$(status_result)
+	$(eval msg = Initializing GitHub repository)
+	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
+	$(call step,$(msg),$(DONE))

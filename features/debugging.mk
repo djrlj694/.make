@@ -3,7 +3,7 @@
 # PROGRAM: debugging.mk
 # AUTHORS: Robert (Bob) L. Jones
 # CREATED: 25SEP2020
-# REVISED: 26SEP2020
+# REVISED: 29SEP2020
 # =========================================================================== #
 
 
@@ -46,13 +46,20 @@ test_result = $(call result,$(PASSED))
 
 # -- Debugging & Error Capture -- #
 
-# $(call result,formatted-string)
+# $(call result,success-string)
 # Prints a success string ($DONE or $PASSED) if the most recent return code
 # ($$?) value equals 0; otherwise, prints a failure string ($FAILED) and the
 # associated error message.
 define result
 	([ $$? -eq 0 ] && printf "$1") || \
 	(printf "$(FAILED)\n" && cat $(LOG) && echo)
+endef
+
+# $(call step,msg,success-string)
+# Prints a success string ($DONE or $PASSED) if the most recent return code
+# ($$?) value equals 0; otherwise, prints a failure string ($FAILED).
+define step
+	[ $$? -eq 0 ] && echo "$1...$2" || echo "$1...$(FAILED)"
 endef
 
 
