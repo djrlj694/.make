@@ -3,7 +3,7 @@
 # PROGRAM: constants.mk
 # AUTHORS: Robert (Bob) L. Jones
 # CREATED: 26SEP2020
-# REVISED: 26SEP2020
+# REVISED: 29SEP2020
 # =========================================================================== #
 
 
@@ -15,7 +15,7 @@
 # -- Commands -- #
 
 # Command prefix for transferring data.
-CURL := curl --silent --show-error --location --fail
+CURL := curl --silent --fail --show-error --location --output /dev/null
 
 # Command prefix for creating directores.
 MKDIR := mkdir -p
