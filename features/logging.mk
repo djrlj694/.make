@@ -1,9 +1,17 @@
+#!/usr/bin/make -f
+# =========================================================================== #
 # Copyright © 2020 djrlj694.dev. All rights reserved.
 # =========================================================================== #
 # PROGRAM: logging.mk
-# AUTHORS: Robert (Bob) L. Jones
-# CREATED: 25SEP2020
-# REVISED: 25SEP2020
+#
+# PURPOSE:
+# To facilitate logging for makefile projects.
+#
+# AUTHORS:
+# 1. Robert (Bob) L. Jones
+#
+# CREATED: 2020-09-25
+# REVISED: 2020-09-30
 # =========================================================================== #
 
 

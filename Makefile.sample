@@ -1,9 +1,23 @@
+#!/usr/bin/make -f
+# =========================================================================== #
 # Copyright © 2020 djrlj694.dev. All rights reserved.
 # =========================================================================== #
 # PROGRAM: Makefile
-# AUTHORS: Robert (Bob) L. Jones
-# CREATED: 25SEP2020
-# REVISED: 25SEP2020
+#
+# PURPOSE:
+# To support the phases of software project development leading to production-
+# quality releases, including:
+# 1. Remote and local software repository ("repo") initialization/setup;
+# 2. CI/CD initialization/setup;
+# 3. Software project initialization/setup;
+# 4. Software project documentation;
+# 5. Software project cleanup.
+#
+# AUTHORS:
+# 1. Robert (Bob) L. Jones
+#
+# CREATED: 2020-09-25
+# REVISED: 2020-09-30
 # =========================================================================== #
 
 
@@ -33,15 +47,9 @@ MAKE_DIR ?= $(MAKEFILE_DIR).make/
 
 .PHONY: all clean init test
 
+# Force the default target execution sequence to display the online help if no
+# target is specified in the command line following "make".
 all: help
-
-
-# =========================================================================== #
-# UTILITY DEPENDENCIES
-# =========================================================================== #
-
-
--include $(MAKE_DIR)utilities/commands.mk
 
 
 # =========================================================================== #
@@ -54,3 +62,19 @@ all: help
 -include $(MAKE_DIR)features/debugging.mk
 -include $(MAKE_DIR)features/helping.mk
 -include $(MAKE_DIR)features/logging.mk
+
+
+# =========================================================================== #
+# UTILITY DEPENDENCIES
+# =========================================================================== #
+
+
+-include $(MAKE_DIR)utilities/commands.mk
+
+
+# =========================================================================== #
+# PLATFORM DEPENDENCIES
+# =========================================================================== #
+
+
+-include $(MAKE_DIR)platforms/GitHub.mk
