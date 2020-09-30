@@ -5,14 +5,15 @@
 # PROGRAM: setup.sh
 #
 # PURPOSE:
-# 1. To copy and rename the main makefile above the `.make` directory;
+# 1. To copy the main makefile sample to a renamed target above the current
+#    directory, where it will become the main makefile;
 # 2. To remove non-essential, leftover artifacts from cloning this project.
 #
 # AUTHORS:
 # 1. Robert (Bob) L. Jones
 #
-# CREATED: Nov 21, 2019
-# REVISED: Apr 16, 2020
+# CREATED: 2020-09-25
+# REVISED: 2020-09-30
 # =========================================================================== #
 
 
