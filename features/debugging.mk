@@ -1,9 +1,17 @@
+#!/usr/bin/make -f
+# =========================================================================== #
 # Copyright © 2020 djrlj694.dev. All rights reserved.
 # =========================================================================== #
 # PROGRAM: debugging.mk
-# AUTHORS: Robert (Bob) L. Jones
-# CREATED: 25SEP2020
-# REVISED: 29SEP2020
+#
+# PURPOSE:
+# To facilitate the debugging of makefile projects.
+#
+# AUTHORS:
+# 1. Robert (Bob) L. Jones
+#
+# CREATED: 2020-09-25
+# REVISED: 2020-09-30
 # =========================================================================== #
 
 

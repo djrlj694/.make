@@ -1,9 +1,18 @@
+#!/usr/bin/make -f
+# =========================================================================== #
 # Copyright © 2020 djrlj694.dev. All rights reserved.
 # =========================================================================== #
 # PROGRAM: GitHub.mk
-# AUTHORS: Robert (Bob) L. Jones
-# CREATED: 28SEP2020
-# REVISED: 29SEP2020
+#
+# PURPOSE:
+# To facilitate GitHub-hosted remote Git repository ("repo") initialization,
+# setup, and cleanup.
+#
+# AUTHORS:
+# 1. Robert (Bob) L. Jones
+#
+# CREATED: 2020-09-28
+# REVISED: 2020-09-30
 # =========================================================================== #
 
 

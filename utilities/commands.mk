@@ -1,9 +1,18 @@
+#!/usr/bin/make -f
+# =========================================================================== #
 # Copyright © 2020 djrlj694.dev. All rights reserved.
 # =========================================================================== #
-# PROGRAM: constants.mk
-# AUTHORS: Robert (Bob) L. Jones
-# CREATED: 26SEP2020
-# REVISED: 29SEP2020
+# PROGRAM: commands.mk
+#
+# PURPOSE:
+# To reduce shell command verbosity via constants representing prefixes to
+# such commands.
+#
+# AUTHORS:
+# 1. Robert (Bob) L. Jones
+#
+# CREATED: 2020-09-26
+# REVISED: 2020-09-30
 # =========================================================================== #
 
 
