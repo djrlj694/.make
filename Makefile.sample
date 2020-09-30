@@ -78,3 +78,4 @@ all: help
 
 
 -include $(MAKE_DIR)platforms/GitHub.mk
+-include $(MAKE_DIR)platforms/Python.mk
