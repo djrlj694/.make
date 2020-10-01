@@ -84,7 +84,7 @@ init-git-flow: | $(LOG)
 
 ## .git: Makes a Git repository.
 .git: | $(LOG)
-ifeq($(GH_ORIGIN_URL),)
+ifeq ($(GH_ORIGIN_URL),)
 	@printf "Initializing Git repository..."
 	@git init >$(LOG) 2>&1; \
 	$(status_result)
