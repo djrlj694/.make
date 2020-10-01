@@ -11,8 +11,8 @@
 # AUTHORS:
 # 1. Robert (Bob) L. Jones
 #
-# CREATED: 2020-01-01
-# REVISED: 2020-09-01
+# CREATED: 2020-10-01
+# REVISED: 2020-10-01
 # =========================================================================== #
 
 
@@ -43,20 +43,19 @@ clean-git: | $(LOG)
 
 # -- Prerequisite for "init" Target -- #
 
-.PHONY: init-git init-git-flow
+.PHONY: init-git init-git-dot-files init-git-flow
 
 ## init-git: Completes all initial Git setup activities.
-init-git: .gitignore .gitattributes .git | $(LOG)
-	@printf "Syncing the initial project with the origin..."
-	@git remote add origin $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
-	git pull origin master >>$(LOG) 2>&1; \
-	git add --all >>$(LOG) 2>&1; \
-	git commit -m "Initial project setup" >>$(LOG) 2>&1; \
-	git branch -M master; \
-	git push -u origin master >>$(LOG) 2>&1; \
-	git tag 0.0.0; \
-	git push origin 0.0.0 >>$(LOG) 2>&1; \
-	$(status_result)
+init-git: .git init-git-flow .gitattributes .gitignore
+	@git flow feature start git-dot-files
+	@git add .gitattributes
+	@git commit -m "feat(git): Create .gitattributes"
+	@git add .gitignore
+	@git commit -m "feat(git): Create .gitignore"
+	@git flow feature finish git-dot-files
+	@git flow release start 0.1.0
+	@git flow release finish 0.1.0
+	@printf "Committing file changes ..."
 
 #init-git: .gitignore .git | $(LOG)
 #	@printf "Committing the initial project to the master branch..."
@@ -68,8 +67,11 @@ init-git: .gitignore .gitattributes .git | $(LOG)
 #	git push -u origin master >$(LOG) 2>&1; \
 #	$(status_result)
 
+init-git-dot-files: .gitattributes .gitignore
+
+
 ## init-git-flow: Initializes git-flow setup.
-init-git-flow: init-git | $(LOG)
+init-git-flow: | $(LOG)
 	@printf "Initializing git-flow branching strategy..."
 	@git flow init -d >$(LOG) 2>&1; \
 	$(status_result)
@@ -82,9 +84,15 @@ init-git-flow: init-git | $(LOG)
 
 ## .git: Makes a Git repository.
 .git: | $(LOG)
+ifeq($(GH_ORIGIN_URL),)
 	@printf "Initializing Git repository..."
 	@git init >$(LOG) 2>&1; \
 	$(status_result)
+else
+	@printf "Cloning Git repository from '$(GH_ORIGIN_URL)'..."
+	@git clone $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
+	$(status_result)
+endif
 
 
 # =========================================================================== #
@@ -93,19 +101,20 @@ init-git-flow: init-git | $(LOG)
 
 
 .gitattributes:
-	$(eval msg = Making Git file)
 	@echo "# Auto detect text files and perform LF normalization" >$@; \
 	echo "* text=auto" >>$@; \
-	$(call step,$(msg) $(target_var),$(DONE))
+	$(call step,Making file $(target_var),$(DONE))
 
 ## .gitignore: Makes a .gitignore file.
 .gitignore: | $(LOG)
 	$(eval base_url = https://www.toptal.com)
 	$(eval path = /developers/gitignore/api/)
 	$(eval url = $(base_url)$(path)$(TOOLCHAIN))
-	@printf "Downloading Git file $(target_var)..."
-	@$(call download-file,.gitignore,$(url)) >$(LOG) 2>&1; \
-	$(status_result)
+	@$(CURL) $(url) --output $@; \
+	$(call step,Downloading file $(target_var),$(DONE))
+	@git add $@; \
+	git commit -m "feat(git): Create $@"; \
+	$(call step,Committing file $(target_var),$(DONE))
 
 # Makes a special empty file for marking that a directory tree has been generated.
 %/.gitkeep:
