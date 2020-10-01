@@ -85,13 +85,11 @@ init-git-flow: | $(LOG)
 ## .git: Makes a Git repository.
 .git: | $(LOG)
 ifeq ($(GH_ORIGIN_URL),)
-	@printf "Initializing Git repository..."
 	@git init >$(LOG) 2>&1; \
-	$(status_result)
+	$(call step,Initializing Git repository,$(DONE))
 else
-	@printf "Cloning Git repository from '$(GH_ORIGIN_URL)'..."
 	@git clone $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
-	$(status_result)
+	$(call step,Cloning Git repository from '$(GH_ORIGIN_URL)',$(DONE))
 endif
 
 
@@ -100,6 +98,7 @@ endif
 # =========================================================================== #
 
 
+## .gitignore: Makes a .gitattributes file.
 .gitattributes:
 	@echo "# Auto detect text files and perform LF normalization" >$@; \
 	echo "* text=auto" >>$@; \
@@ -110,11 +109,8 @@ endif
 	$(eval base_url = https://www.toptal.com)
 	$(eval path = /developers/gitignore/api/)
 	$(eval url = $(base_url)$(path)$(TOOLCHAIN))
-	@$(CURL) $(url) --output $@; \
+	@$(CURL) $(url) --output $@ >$(LOG) 2>&1; \
 	$(call step,Downloading file $(target_var),$(DONE))
-	@git add $@; \
-	git commit -m "feat(git): Create $@"; \
-	$(call step,Committing file $(target_var),$(DONE))
 
 # Makes a special empty file for marking that a directory tree has been generated.
 %/.gitkeep:
