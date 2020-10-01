@@ -17,7 +17,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-09-30
+# REVISED: 2020-10-01
 # =========================================================================== #
 
 
@@ -77,5 +77,6 @@ all: help
 # =========================================================================== #
 
 
+-include $(MAKE_DIR)src/platforms/Git.mk
 -include $(MAKE_DIR)src/platforms/GitHub.mk
 -include $(MAKE_DIR)src/platforms/Python.mk
