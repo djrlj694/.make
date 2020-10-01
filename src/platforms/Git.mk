@@ -38,7 +38,7 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 ## clean-git: Completes all git cleanup activities.
 clean-git: | $(LOG)
 	@printf "Removing git setup..."
-	@rm -rf .git .gitignore >$(LOG) 2>&1; \
+	@${RM} .git .gitignore >$(LOG) 2>&1; \
 	$(status_result)
 
 # -- Prerequisite for "init" Target -- #
@@ -98,18 +98,18 @@ endif
 # =========================================================================== #
 
 
-## .gitignore: Makes a .gitattributes file.
+## .gitattributes: Makes a .gitattributes file.
 .gitattributes:
 	@echo "# Auto detect text files and perform LF normalization" >$@; \
 	echo "* text=auto" >>$@; \
 	$(call step,Making file $(target_var),$(DONE))
 
 ## .gitignore: Makes a .gitignore file.
-.gitignore: | $(LOG)
+.gitignore:
 	$(eval base_url = https://www.toptal.com)
 	$(eval path = /developers/gitignore/api/)
 	$(eval url = $(base_url)$(path)$(TOOLCHAIN))
-	@$(CURL) $(url) --output $@ >$(LOG) 2>&1; \
+	@$(CURL) $(url) --output $@ >$@; \
 	$(call step,Downloading file $(target_var),$(DONE))
 
 # Makes a special empty file for marking that a directory tree has been generated.
