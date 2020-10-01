@@ -1,6 +1,6 @@
 # .make
 
-[![version](https://img.shields.io/badge/version-0.1.0-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.9.0-yellow.svg)](https://semver.org)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
@@ -30,7 +30,7 @@ TODO: *Guide users through getting your code up and running on their own system.
 * [Linux](https://www.linuxfoundation.org)
 * [macOS](https://www.apple.com/macos/)
 
-It can indirectly support the [Windows](https://www.microsoft.com/en-us/windows) operating system if used with Microsoft's native [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about) or a 3rd-party emulator like Git BASH (part of [Git for Windows](https://gitforwindows.org))
+It can indirectly support the [Windows](https://www.microsoft.com/en-us/windows) operating system if used with Microsoft's native [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about) or a 3rd-party emulator like Git BASH (part of [Git for Windows](https://gitforwindows.org)).
 
 ### Installation
 
