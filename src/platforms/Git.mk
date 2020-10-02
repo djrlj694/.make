@@ -51,10 +51,21 @@ define commit-unstaged
 	$(call commit,$1,$2,$3,Create $1)
 endef
 
+# $(call feature-finish,feature)
+# Finalizes a Git feature branch.
+# Equivalent to `git flow feature finish $1` except for:
+# 1. The `--no-edit` option for the `git merge` command.
+define feature-finish
+	git checkout develop; \
+	git merge --no-edit --no-ff feature/$1; \
+	git branch -d feature/$1
+endef
+
 # $(call release-finish,tag,message)
 # Finalizes a Git release branch.
-# Equivalent to `git flow release finish $1`
-# (except for `-m` option for the `git tag` command).
+# Equivalent to `git flow release finish $1` except for:
+# 1. The `-m` option for the `git tag` command;
+# 2. The `--no-edit` option for the `git merge` command.
 define release-finish
 	git checkout master; \
 	git merge --no-edit --no-ff release/$1; \
@@ -130,7 +141,7 @@ init-git: .git init-git-flow git-dot-files
 git-dot-files: .gitattributes .gitignore
 	@git flow feature start $@
 	@$(foreach f,$^,$(call commit-unstaged,$(f),feat,git);)
-	@git flow feature finish $@
+	@$(call feature-finish,$@)
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
