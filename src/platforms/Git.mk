@@ -57,10 +57,10 @@ endef
 # (except for `-m` option for the `git tag` command).
 define release-finish
 	git checkout master; \
-	git merge --no-ff release/$1; \
+	git merge --no-edit --no-ff release/$1; \
 	git tag -a $1 -m "$2"; \
 	git checkout develop; \
-	git merge --no-ff release/$1; \
+	git merge --no-edit --no-ff release/$1; \
 	git branch -d release/$1
 endef
 
