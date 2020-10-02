@@ -46,6 +46,10 @@ API documentation, tutorials, and other online references and made portions of t
 3. https://www.gnu.org/software/make/manual/make.html
 4. https://www.oreilly.com/openbook/make3/book
 
+### Style
+
+1. https://clarkgrubb.com/makefile-style-guide
+
 ### Tips & Tricks
 
 1. https://unix.stackexchange.com/questions/100786/why-does-diff-fail-when-invoked-from-a-makefile
