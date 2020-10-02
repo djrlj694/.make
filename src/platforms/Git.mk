@@ -36,7 +36,7 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 # Commits a file to Git.
 define commit
 	git add $1; \
-	git commit -m "$2($3): $4";
+	git commit -m "$2($3): $4"
 endef
 
 # $(call commit-modified,file,type,scope)
@@ -61,7 +61,7 @@ define release-finish
 	git tag -a $1 -m "$2"; \
 	git checkout develop; \
 	git merge --no-ff release/$1; \
-	git branch -d release/$1;
+	git branch -d release/$1
 endef
 
 # $(call release-finish-major,tag,message)
