@@ -113,6 +113,7 @@ git-%: %
 
 ## init-git: Completes all initial Git setup activities.
 init-git: .git init-git-flow git-dot-files
+	@git flow release start 0.1.0
 	@$(call release-finish-minor,0.1.0,Initial project setup)
 	@printf "Committing file changes ..."
 
