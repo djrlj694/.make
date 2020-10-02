@@ -26,6 +26,58 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 
 
 # =========================================================================== #
+# USER-DEFINED FUNCTIONS
+# =========================================================================== #
+
+
+# -- Source Code Management (SCM) -- #
+
+# $(call commit,file,type,scope,description)
+# Commits a file to Git.
+define commit
+	git add $1; \
+	git commit -m "$2($3): $4";
+endef
+
+# $(call commit-modified,file,type,scope)
+# Commits a modified (i.e., existing) file to Git.
+define commit-modified
+	$(call commit,$1,$2,$3,Update $1)
+endef
+
+# $(call commit-unstaged,file,type,scope)
+# Commits an unstaged (i.e., new) file to Git.
+define commit-unstaged
+	$(call commit,$1,$2,$3,Create $1)
+endef
+
+# $(call release-finish,tag,message)
+# Finalizes a Git release branch.
+# Equivalent to `git flow release finish $1`
+# (except for `-m` option for the `git tag` command).
+define release-finish
+	git checkout master; \
+	git merge --no-ff release/$1; \
+	git tag -a $1 -m "$2"; \
+	git checkout develop; \
+	git merge --no-ff release/$1; \
+	git branch -d release/$1;
+endef
+
+# $(call release-finish-major,tag,message)
+# Finalizes a major Git release branch.
+define release-finish-major
+	$(call release-finish,$1,Major release $1 | $2)
+endef
+
+# $(call release-finish-minor,tag,message)
+# Finalizes a minor Git release branch.
+define release-finish-minor
+	$(call release-finish,$1,Minor release $1 | $2)
+endef
+
+
+# =========================================================================== #
 # PHONY TARGETS
 # =========================================================================== #
 
@@ -38,23 +90,30 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 ## clean-git: Completes all git cleanup activities.
 clean-git: | $(LOG)
 	@printf "Removing git setup..."
-	@${RM} .git .gitignore >$(LOG) 2>&1; \
+	@${RM} .git* >$(LOG) 2>&1; \
 	$(status_result)
+
+# -- Prerequisite for "git" Target -- #
+
+.PHONY: git-% git-dot-files
+
+git-dot-files: .gitattributes .gitignore
+	@git flow feature start $@
+	@$(foreach f,$^,$(call commit-unstaged,$(f),feat,git);)
+	@git flow feature finish $@
+
+# Commits an unstaged file to Git.
+git-%: %
+	@git add $<
+	@git commit -m "feat(git): Create $<"
 
 # -- Prerequisite for "init" Target -- #
 
 .PHONY: init-git init-git-dot-files init-git-flow
 
 ## init-git: Completes all initial Git setup activities.
-init-git: .git init-git-flow .gitattributes .gitignore
-	@git flow feature start git-dot-files
-	@git add .gitattributes
-	@git commit -m "feat(git): Create .gitattributes"
-	@git add .gitignore
-	@git commit -m "feat(git): Create .gitignore"
-	@git flow feature finish git-dot-files
-	@git flow release start 0.1.0
-	@git flow release finish 0.1.0
+init-git: .git init-git-flow git-dot-files
+	@$(call release-finish-minor,0.1.0,Initial project setup)
 	@printf "Committing file changes ..."
 
 #init-git: .gitignore .git | $(LOG)
@@ -67,14 +126,18 @@ init-git: .git init-git-flow .gitattributes .gitignore
 #	git push -u origin master >$(LOG) 2>&1; \
 #	$(status_result)
 
-init-git-dot-files: .gitattributes .gitignore
-
+git-dot-files: .gitattributes .gitignore
+	@git flow feature start $@
+	@$(foreach f,$^,$(call commit-unstaged,$(f),feat,git);)
+	@git flow feature finish $@
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
 	@printf "Initializing git-flow branching strategy..."
 	@git flow init -d >$(LOG) 2>&1; \
 	$(status_result)
+
+
 
 
 # =========================================================================== #
