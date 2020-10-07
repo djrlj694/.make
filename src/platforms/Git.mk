@@ -26,6 +26,16 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 
 
 # =========================================================================== #
+# INTERNAL CONSTANTS
+# =========================================================================== #
+
+
+# -- Commands -- #
+
+QUIET := $(if $(VERBOSE),,--quiet)
+
+
+# =========================================================================== #
 # USER-DEFINED FUNCTIONS
 # =========================================================================== #
 
@@ -36,7 +46,7 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 # Commits a file to Git.
 define commit
 	git add $1; \
-	git commit -m "$2($3): $4"
+	git commit $(QUIET) -m "$2($3): $4"
 endef
 
 # $(call commit-modified,file,type,scope)
@@ -56,16 +66,16 @@ endef
 # Equivalent to `git flow feature finish $1`, except for:
 # 1. The `--no-edit` option for the `git merge` command.
 define gf-feature-finish
-	git checkout develop; \
-	git merge --no-edit --no-ff feature/$1; \
-	git branch -d feature/$1
+	git checkout $(QUIET) develop; \
+	git merge $(QUIET) --no-edit --no-ff feature/$1; \
+	git branch --delete feature/$1
 endef
 
 # $(call gf-feature-publish,feature)
 # Shares a Git feature branch.
 # Equivalent to `git flow feature publish $1`.
 define gf-feature-publish
-	git checkout feature/$1; \
+	git checkout $(QUIET) feature/$1; \
 	git push origin feature/$1
 endef
 
@@ -74,14 +84,14 @@ endef
 # Equivalent to `git flow feature pull origin $1`.
 define gf-feature-pull
 	git checkout feature/$1; \
-	git pull --rebase origin feature/$1
+	git pull $(QUIET) --rebase origin feature/$1
 endef
 
 # $(call gf-feature-start,feature)
 # Creates a Git feature branch.
 # Equivalent to `git flow feature start $1`.
 define gf-feature-start
-	git checkout -b feature/$1 develop
+	git checkout $(QUIET) --branch feature/$1 develop
 endef
 
 # $(call gf-init,msg)
@@ -89,9 +99,9 @@ endef
 # Equivalent to `git flow init`, except for:
 # 1. The value of the commit message.
 define gf-init
-	git init; \
-	git commit --allow-empty -m "feat(git): $1"; \
-	git checkout -b develop master
+	git init $(QUIET); \
+	git commit $(QUIET) --allow-empty -m "feat(git): $1"; \
+	git checkout $(QUIET) --branch develop master
 endef
 
 # $(call gf-release-finish,tag,message)
@@ -100,12 +110,12 @@ endef
 # 1. The `-m` option for the `git tag` command;
 # 2. The `--no-edit` option for the `git merge` command.
 define gf-release-finish
-	git checkout master; \
-	git merge --no-edit --no-ff release/$1; \
-	git tag -a $1 -m "$2"; \
-	git checkout develop; \
-	git merge --no-edit --no-ff release/$1; \
-	git branch -d release/$1
+	git checkout $(QUIET) master; \
+	git merge $(QUIET) --no-edit --no-ff --quiet release/$1; \
+	git tag --annotate $1 -m "$2"; \
+	git checkout $(QUIET) develop; \
+	git merge $(QUIET) --no-edit --no-ff --quiet release/$1; \
+	git branch $(QUIET) --delete release/$1
 endef
 
 # $(call gf-release-finish-major,tag,message)
@@ -124,23 +134,23 @@ endef
 # Shares a Git release branch.
 # Equivalent to `git flow release publish $1`.
 define gf-release-publish
-	git checkout release/$1;
-	git push origin release/$1
+	git checkout $(QUIET) release/$1;
+	git push $(QUIET) origin release/$1
 endef
 
 # $(call gf-release-pull,tag)
 # Gets the latest changes for a Git release branch.
 # Has no equivalent `git flow` command.
 define gf-release-pull
-	git checkout release/$1;
-	git pull --rebase origin release/$1
+	git checkout $(QUIET) release/$1;
+	git pull $(QUIET) --rebase origin release/$1
 endef
 
 # $(call gf-release-start,tag)
 # Creates a Git release branch.
 # Equivalent to `git flow release start $1`.
 define gf-release-start
-	git checkout -b release/$1 develop
+	git checkout $(QUIET) --branch release/$1 develop
 endef
 
 
@@ -180,7 +190,7 @@ init-git: .git init-git-flow git-dot-files
 
 #init-git: .gitignore .git | $(LOG)
 #	@printf "Committing the initial project to the master branch..."
-#	@git checkout -b master >$(LOG) 2>&1; \
+#	@git checkout --branch master >$(LOG) 2>&1; \
 #	$(status_result)
 #	@printf "Syncing the initial project with the origin..."
 #	@git remote add origin $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
