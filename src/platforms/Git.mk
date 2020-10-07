@@ -175,8 +175,8 @@ git-dot-files: .gitattributes .gitignore
 
 ## init-git: Completes all initial Git setup activities.
 init-git: .git init-git-flow git-dot-files
-	@$(call release-start,0.1.0); \
-	$(call release-finish-minor,0.1.0,Initial project setup)
+	@$(call gf-release-start,0.1.0); \
+	$(call gf-release-finish-minor,0.1.0,Initial project setup)
 
 #init-git: .gitignore .git | $(LOG)
 #	@printf "Committing the initial project to the master branch..."
