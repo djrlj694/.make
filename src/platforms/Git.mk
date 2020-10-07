@@ -91,7 +91,7 @@ endef
 # Creates a Git feature branch.
 # Equivalent to `git flow feature start $1`.
 define gf-feature-start
-	git checkout $(QUIET) --branch feature/$1 develop
+	git checkout $(QUIET) -b feature/$1 develop
 endef
 
 # $(call gf-init,msg)
@@ -101,7 +101,7 @@ endef
 define gf-init
 	git init $(QUIET); \
 	git commit $(QUIET) --allow-empty -m "feat(git): $1"; \
-	git checkout $(QUIET) --branch develop master
+	git checkout $(QUIET) -b develop master
 endef
 
 # $(call gf-release-finish,tag,message)
@@ -150,7 +150,7 @@ endef
 # Creates a Git release branch.
 # Equivalent to `git flow release start $1`.
 define gf-release-start
-	git checkout $(QUIET) --branch release/$1 develop
+	git checkout $(QUIET) -b release/$1 develop
 endef
 
 
@@ -190,7 +190,7 @@ init-git: .git init-git-flow git-dot-files
 
 #init-git: .gitignore .git | $(LOG)
 #	@printf "Committing the initial project to the master branch..."
-#	@git checkout --branch master >$(LOG) 2>&1; \
+#	@git checkout -b master >$(LOG) 2>&1; \
 #	$(status_result)
 #	@printf "Syncing the initial project with the origin..."
 #	@git remote add origin $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
