@@ -169,11 +169,6 @@ git-dot-files: .gitattributes .gitignore
 	@$(foreach f,$^,$(call commit-unstaged,$(f),feat,git);)
 	@$(call gf-feature-finish,$@)
 
-# Commits an unstaged file to Git.
-git-%: %
-	@git add $<
-	@git commit -m "feat(git): Create $<"
-
 # -- Prerequisite for "init" Target -- #
 
 .PHONY: init-git init-git-dot-files init-git-flow
@@ -182,7 +177,6 @@ git-%: %
 init-git: .git init-git-flow git-dot-files
 	@$(call release-start,0.1.0); \
 	$(call release-finish-minor,0.1.0,Initial project setup); \
-	$(call step,Committing file changes,$(DONE))
 
 #init-git: .gitignore .git | $(LOG)
 #	@printf "Committing the initial project to the master branch..."
