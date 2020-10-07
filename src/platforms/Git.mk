@@ -32,7 +32,8 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 
 # -- Commands -- #
 
-QUIET := $(if $(VERBOSE),,--quiet)
+#QUIET := $(if $(VERBOSE),,--quiet)
+QUIET := --quiet
 
 
 # =========================================================================== #
@@ -68,7 +69,7 @@ endef
 define gf-feature-finish
 	git checkout $(QUIET) develop; \
 	git merge $(QUIET) --no-edit --no-ff feature/$1; \
-	git branch --delete feature/$1
+	git branch $(QUIET) --delete feature/$1
 endef
 
 # $(call gf-feature-publish,feature)
@@ -76,14 +77,14 @@ endef
 # Equivalent to `git flow feature publish $1`.
 define gf-feature-publish
 	git checkout $(QUIET) feature/$1; \
-	git push origin feature/$1
+	git push $(QUIET) origin feature/$1
 endef
 
 # $(call gf-feature-pull,feature)
 # Gets the latest changes for a feature branch.
 # Equivalent to `git flow feature pull origin $1`.
 define gf-feature-pull
-	git checkout feature/$1; \
+	git checkout $(QUIET) feature/$1; \
 	git pull $(QUIET) --rebase origin feature/$1
 endef
 
