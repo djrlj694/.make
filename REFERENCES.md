@@ -18,6 +18,37 @@ API documentation, tutorials, and other online references and made portions of t
 2. https://curl.haxx.se/docs/httpscripting.html
 3. https://stackoverflow.com/questions/32488162/curl-suppress-response-body
 
+## Git
+
+### Commits
+
+1. https://www.atlassian.com/git/tutorials/saving-changes/git-commit
+
+### Manuals
+
+1. https://git-scm.com/book/
+
+### Setup
+
+1. https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config
+2. https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+
+### Tags
+
+1. https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-tag
+
+### Tips & Tricks
+
+1. https://stackoverflow.com/questions/63241071/automate-git-merge-commit-message
+
+## git-flow
+
+1. https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+2. https://gist.github.com/JamesMGreene/cdd0ac49f90c987e45ac
+3. https://nvie.com/posts/a-successful-git-branching-model/
+4. https://medium.com/@roalcantara/a-guide-to-improve-the-git-hub-flow-and-commits-messages-b495461e1115
+5. https://git-flow.readthedocs.io/en/latest/releases.html
+
 ## GitHub
 
 ### Community
