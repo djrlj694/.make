@@ -24,25 +24,24 @@
 # -- Commands -- #
 
 # Command prefix for transferring data.
-CURL := curl --location --fail --show-error
+CURL := curl $(S) --location --fail --show-error
 ifeq ($(VERBOSE),0)
-CURL += --silent --output /dev/null
+CURL += --output /dev/null
 endif
 
 # Command prefix for creating directores.
-MKDIR := mkdir -p
-ifneq ($(VERBOSE),0)
-MKDIR += -v
-endif
+MKDIR := mkdir $(V) -p
 
 # Command prefix for removing directores/files.
-RM := rm -rf
-ifneq ($(VERBOSE),0)
-RM += -v
-endif
-
+RM := rm $(V) -rf
 
 # -- Command Options -- #
 
-Q := $(if $(VERBOSE),,--quiet)
-V := $(if $(VERBOSE),-v,)
+ifeq ($(VERBOSE),0)
+Q := --quiet
+S := --silent
+endif
+
+ifneq ($(VERBOSE),0)
+V := -v
+endif
