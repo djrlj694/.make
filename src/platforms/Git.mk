@@ -240,12 +240,10 @@ endif
 
 # Makes a special empty file for marking that a directory tree has been generated.
 %/.gitkeep:
-	@printf "Making missing directories in the path of marker file $(target_var)..."
 	@MKDIR $(@D); \
-	$(status_result)
-	@printf "Making marker file $(target_var)..."
+	$(call step,Making missing directories in the path of marker file $(target_var),$(DONE))
 	@touch $@; \
-	$(status_result)
+	$(call step,Making marker file $(target_var),$(DONE))
 
 
 # =========================================================================== #
@@ -255,4 +253,4 @@ endif
 
 .SECONDEXPANSION:
 # Make a directory tree.
-#$(PREFIX)/%.gitkeep: $$(@D)/.gitkeep | $$(@D)/.
+#$(MAKEFILE_DIR)/%.gitkeep: $$(@D)/.gitkeep | $$(@D)/.
