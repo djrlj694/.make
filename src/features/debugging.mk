@@ -23,9 +23,8 @@
 # -- Debugging & Error Capture -- #
 
 # 0 = false, 1 = true
-ifeq ($(VERBOSE),)
-VERBOSE := 0
-endif
+VERBOSE ?= 0
+VERBOSE := $(or $(VERBOSE),0)
 
 
 # =========================================================================== #
