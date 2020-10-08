@@ -23,6 +23,17 @@
 
 # -- Commands -- #
 
+# Command options for no verbosity.
+ifeq ($(VERBOSE),0)
+Q := --quiet
+S := --silent
+endif
+
+# Command options for verbosity.
+ifneq ($(VERBOSE),0)
+V := -v
+endif
+
 # Command prefix for transferring data.
 CURL := curl $(S) --location --fail --show-error
 ifeq ($(VERBOSE),0)
@@ -34,14 +45,3 @@ MKDIR := mkdir $(V) -p
 
 # Command prefix for removing directores/files.
 RM := rm $(V) -rf
-
-# -- Command Options -- #
-
-ifeq ($(VERBOSE),0)
-Q := --quiet
-S := --silent
-endif
-
-ifneq ($(VERBOSE),0)
-V := -v
-endif
