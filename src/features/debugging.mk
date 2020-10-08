@@ -23,8 +23,8 @@
 # -- Debugging & Error Capture -- #
 
 # 0 = false, 1 = true
-VERBOSE ?= $(if $(VERBOSE),$(VERBOSE),0)
-
+VERBOSE ?= 0
+VERBOSE = $(or $(VERBOSE),0)
 
 # =========================================================================== #
 # INTERNAL CONSTANTS
