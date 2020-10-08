@@ -21,6 +21,11 @@
 # =========================================================================== #
 
 
+# -- Source Code Management (SCM) -- #
+
+# Default branch.  (Historically, this was `master` but is now `main`.)
+DEFUALT_BRANCH ?= $(shell git symbolic-ref --short HEAD)
+
 # OSes, IDEs, or programming languagses
 TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 
@@ -91,7 +96,7 @@ endef
 define gf-init
 	git init $(Q); \
 	git commit $(Q) --allow-empty -m "feat(git): $1"; \
-	git checkout $(Q) -b develop master
+	git checkout $(Q) -b develop $(DEFUALT_BRANCH)
 endef
 
 # $(call gf-release-finish,tag,message)
@@ -100,7 +105,7 @@ endef
 # 1. The `-m` option for the `git tag` command;
 # 2. The `--no-edit` option for the `git merge` command.
 define gf-release-finish
-	git checkout $(Q) master; \
+	git checkout $(Q) $(DEFUALT_BRANCH); \
 	git merge $(Q) --no-edit --no-ff --quiet release/$1; \
 	git tag --annotate $1 -m "$2"; \
 	git checkout $(Q) develop; \
@@ -179,13 +184,13 @@ init-git: .git init-git-flow git-dot-files
 	$(call gf-release-finish-minor,0.1.0,Initial project setup)
 
 #init-git: .gitignore .git | $(LOG)
-#	@printf "Committing the initial project to the master branch..."
-#	@git checkout -b master >$(LOG) 2>&1; \
+#	@printf "Committing the initial project to the $(DEFUALT_BRANCH) branch..."
+#	@git checkout -b $(DEFUALT_BRANCH) >$(LOG) 2>&1; \
 #	$(status_result)
 #	@printf "Syncing the initial project with the origin..."
 #	@git remote add origin $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
-#	git pull origin master >$(LOG) 2>&1; \
-#	git push -u origin master >$(LOG) 2>&1; \
+#	git pull origin $(DEFUALT_BRANCH) >$(LOG) 2>&1; \
+#	git push -u origin $(DEFUALT_BRANCH) >$(LOG) 2>&1; \
 #	$(status_result)
 
 ## init-git-flow: Initializes git-flow setup.
