@@ -161,9 +161,8 @@ endef
 
 ## clean-git: Completes all git cleanup activities.
 clean-git: | $(LOG)
-	@printf "Removing git setup..."
 	@${RM} .git* >$(LOG) 2>&1; \
-	$(status_result)
+	$(call step,Removing Git setup,$(DONE))
 
 # -- Prerequisite for "git" Target -- #
 
