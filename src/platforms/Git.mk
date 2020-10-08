@@ -194,9 +194,8 @@ init-git: .git init-git-flow git-dot-files
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
-	@printf "Initializing git-flow branching strategy..."
 	@git flow init -d >$(LOG) 2>&1; \
-	$(status_result)
+	$(call step,Initializing git-flow branching strategy,$(DONE))
 
 
 # =========================================================================== #
