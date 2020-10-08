@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-26
-# REVISED: 2020-09-30
+# REVISED: 2020-10-08
 # =========================================================================== #
 
 
@@ -29,7 +29,6 @@ ifeq ($(VERBOSE),0)
 CURL += --silent --output /dev/null
 endif
 
-
 # Command prefix for creating directores.
 MKDIR := mkdir -p
 ifneq ($(VERBOSE),0)
@@ -41,3 +40,9 @@ RM := rm -rf
 ifneq ($(VERBOSE),0)
 RM += -v
 endif
+
+
+# -- Command Options -- #
+
+Q := $(if $(VERBOSE),,--quiet)
+V := $(if $(VERBOSE),-v,)

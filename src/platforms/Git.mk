@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-10-01
-# REVISED: 2020-10-07
+# REVISED: 2020-10-08
 # =========================================================================== #
 
 
@@ -26,17 +26,6 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 
 
 # =========================================================================== #
-# INTERNAL CONSTANTS
-# =========================================================================== #
-
-
-# -- Commands -- #
-
-#QUIET := $(if $(VERBOSE),,--quiet)
-QUIET := --quiet
-
-
-# =========================================================================== #
 # USER-DEFINED FUNCTIONS
 # =========================================================================== #
 
@@ -47,7 +36,7 @@ QUIET := --quiet
 # Commits a file to Git.
 define commit
 	git add $1; \
-	git commit $(QUIET) -m "$2($3): $4"
+	git commit $(Q) -m "$2($3): $4"
 endef
 
 # $(call commit-modified,file,type,scope)
@@ -67,32 +56,32 @@ endef
 # Equivalent to `git flow feature finish $1`, except for:
 # 1. The `--no-edit` option for the `git merge` command.
 define gf-feature-finish
-	git checkout $(QUIET) develop; \
-	git merge $(QUIET) --no-edit --no-ff feature/$1; \
-	git branch $(QUIET) --delete feature/$1
+	git checkout $(Q) develop; \
+	git merge $(Q) --no-edit --no-ff feature/$1; \
+	git branch $(Q) --delete feature/$1
 endef
 
 # $(call gf-feature-publish,feature)
 # Shares a Git feature branch.
 # Equivalent to `git flow feature publish $1`.
 define gf-feature-publish
-	git checkout $(QUIET) feature/$1; \
-	git push $(QUIET) origin feature/$1
+	git checkout $(Q) feature/$1; \
+	git push $(Q) origin feature/$1
 endef
 
 # $(call gf-feature-pull,feature)
 # Gets the latest changes for a feature branch.
 # Equivalent to `git flow feature pull origin $1`.
 define gf-feature-pull
-	git checkout $(QUIET) feature/$1; \
-	git pull $(QUIET) --rebase origin feature/$1
+	git checkout $(Q) feature/$1; \
+	git pull $(Q) --rebase origin feature/$1
 endef
 
 # $(call gf-feature-start,feature)
 # Creates a Git feature branch.
 # Equivalent to `git flow feature start $1`.
 define gf-feature-start
-	git checkout $(QUIET) -b feature/$1 develop
+	git checkout $(Q) -b feature/$1 develop
 endef
 
 # $(call gf-init,msg)
@@ -100,9 +89,9 @@ endef
 # Equivalent to `git flow init`, except for:
 # 1. The value of the commit message.
 define gf-init
-	git init $(QUIET); \
-	git commit $(QUIET) --allow-empty -m "feat(git): $1"; \
-	git checkout $(QUIET) -b develop master
+	git init $(Q); \
+	git commit $(Q) --allow-empty -m "feat(git): $1"; \
+	git checkout $(Q) -b develop master
 endef
 
 # $(call gf-release-finish,tag,message)
@@ -111,12 +100,12 @@ endef
 # 1. The `-m` option for the `git tag` command;
 # 2. The `--no-edit` option for the `git merge` command.
 define gf-release-finish
-	git checkout $(QUIET) master; \
-	git merge $(QUIET) --no-edit --no-ff --quiet release/$1; \
+	git checkout $(Q) master; \
+	git merge $(Q) --no-edit --no-ff --quiet release/$1; \
 	git tag --annotate $1 -m "$2"; \
-	git checkout $(QUIET) develop; \
-	git merge $(QUIET) --no-edit --no-ff --quiet release/$1; \
-	git branch $(QUIET) --delete release/$1
+	git checkout $(Q) develop; \
+	git merge $(Q) --no-edit --no-ff --quiet release/$1; \
+	git branch $(Q) --delete release/$1
 endef
 
 # $(call gf-release-finish-major,tag,message)
@@ -135,23 +124,23 @@ endef
 # Shares a Git release branch.
 # Equivalent to `git flow release publish $1`.
 define gf-release-publish
-	git checkout $(QUIET) release/$1;
-	git push $(QUIET) origin release/$1
+	git checkout $(Q) release/$1;
+	git push $(Q) origin release/$1
 endef
 
 # $(call gf-release-pull,tag)
 # Gets the latest changes for a Git release branch.
 # Has no equivalent `git flow` command.
 define gf-release-pull
-	git checkout $(QUIET) release/$1;
-	git pull $(QUIET) --rebase origin release/$1
+	git checkout $(Q) release/$1;
+	git pull $(Q) --rebase origin release/$1
 endef
 
 # $(call gf-release-start,tag)
 # Creates a Git release branch.
 # Equivalent to `git flow release start $1`.
 define gf-release-start
-	git checkout $(QUIET) -b release/$1 develop
+	git checkout $(Q) -b release/$1 develop
 endef
 
 
