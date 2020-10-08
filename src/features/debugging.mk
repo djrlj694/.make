@@ -24,7 +24,7 @@
 
 # 0 = false, 1 = true
 VERBOSE ?= 0
-VERBOSE = $(or $(VERBOSE),0)
+VERBOSE := $(or $(VERBOSE),0)
 
 # =========================================================================== #
 # INTERNAL CONSTANTS
