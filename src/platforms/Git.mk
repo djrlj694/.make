@@ -167,7 +167,7 @@ endef
 # Shares a Git release branch.
 # Equivalent to `git flow release publish $1`.
 define git-flow-release-publish
-	$(GIT_CHECKOUT) release/$1;
+	$(GIT_CHECKOUT) release/$1; \
 	$(GIT_PUSH) origin release/$1
 endef
 
@@ -175,7 +175,7 @@ endef
 # Gets the latest changes for a Git release branch.
 # Has no equivalent `git flow` command.
 define git-flow-release-pull
-	$(GIT_CHECKOUT) release/$1;
+	$(GIT_CHECKOUT) release/$1; \
 	$(GIT_PULL) --rebase origin release/$1
 endef
 
