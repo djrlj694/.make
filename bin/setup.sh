@@ -7,8 +7,7 @@
 # PURPOSE:
 # 1. To copy the main makefile sample to a renamed target above the makefile
 #    project root, where it will become the main makefile;
-# 2. To remove non-essential, leftover artifacts from cloning this project
-#    (e.g., the local Git repo).
+# 2. To remove non-essential artifacts.
 #
 # AUTHORS:
 # 1. Robert (Bob) L. Jones
@@ -23,10 +22,10 @@
 # =========================================================================== #
 
 
-# The local Git repo removal flag.
-# ${REMOVE_GIT} = 0 (default): keep
-# ${REMOVE_GIT} = 1: remove
-REMOVE_GIT="${REMOVE_GIT:-0}"
+# The artifacts removal flag.
+# ${CLEAN} = 0 (default): keep
+# ${CLEAN} = 1: remove
+CLEAN="${CLEAN:-0}"
 
 
 # =========================================================================== #
@@ -46,8 +45,15 @@ PROJROOT="$(dirname "$0")/.."
 # Copy tthe main makefile sample to a renamed target above the current
 cp -p "${PROJROOT}/etc/Makefile.sample" "${PROJROOT}/../Makefile"
 
-# Conditionally remove the local Git repo.
-# Example 1 (keep repo):   $ ./bin/setup.sh
-# Example 2 (keep repo):   $ REMOVE_GIT=0 ./bin/setup.sh
-# Example 3 (remove repo): $ REMOVE_GIT=1 ./bin/setup.sh
-[ ${REMOVE_GIT} = 1 ] && rm -rf "${PROJROOT}/.git"
+# Conditionally remove non-essential artifacts.
+# Example 1 (keep artifacts):   $ ./bin/setup.sh
+# Example 2 (keep artifacts):   $ CLEAN=0 ./bin/setup.sh
+# Example 3 (remove artifacts): $ CLEAN=1 ./bin/setup.sh
+if [ ${CLEAN} = 1 ]; then
+    rm -rf "${PROJROOT}/.git"
+    rm -rf "${PROJROOT}/.gitattributes"
+    rm -rf "${PROJROOT}/.gitignore"
+    rm -rf "${PROJROOT}/.pre-commit-config.yaml"
+    rm -rf "${PROJROOT}/CODE_OF_CONDUCT.md"
+    rm -rf "${PROJROOT}/CONTRIBUTING.md"
+fi

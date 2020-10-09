@@ -11,7 +11,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-09-30
+# REVISED: 2020-10-08
 # =========================================================================== #
 
 
@@ -41,10 +41,10 @@ VARIABLES_TO_SHOW += PWD VERBOSE
 
 # Color-formatted outcome statuses, each of which is based on the return code
 # ($$?) of having run a shell command.
-DONE := $(FG_GREEN)done$(RESET).\n
-FAILED := $(FG_RED)failed$(RESET).\n
-IGNORE := $(FG_YELLOW)ignore$(RESET).\n
-PASSED := $(FG_GREEN)passed$(RESET).\n
+DONE := $(FG_GREEN)done$(RESET).
+FAILED := $(FG_RED)failed$(RESET).
+IGNORE := $(FG_YELLOW)ignore$(RESET).
+PASSED := $(FG_GREEN)passed$(RESET).
 
 
 # =========================================================================== #
@@ -54,8 +54,8 @@ PASSED := $(FG_GREEN)passed$(RESET).\n
 
 # -- Debugging & Error Capture -- #
 
-status_result = $(call result,$(DONE))
-test_result = $(call result,$(PASSED))
+status_result = $(call result,$(DONE)\n)
+test_result = $(call result,$(PASSED)\n)
 
 
 # =========================================================================== #
