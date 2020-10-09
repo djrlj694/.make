@@ -220,7 +220,7 @@ init-git: .git init-git-flow git-dot-files | $(LOG)
 	$(eval release_tag = 0.1.0)
 	$(eval release_msg = Initial project setup)
 	@$(call git-flow-release-start,$(release_tag)); \
-	$(call git-flow-release-finish-minor,$(release_tag),$(release_msg)); \
+	$(call git-flow-release-finish,$(release_tag),Minor release | $(release_msg)); \
 	$(call step,Releasing the initial project as version $(release_tag),$(DONE))
 ifneq ($(GH_ORIGIN_URL),)
 	@$(GIT_PUSH) --all -u origin >$(LOG) 2>&1; \
