@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-10-01
-# REVISED: 2020-10-08
+# REVISED: 2020-10-09
 # =========================================================================== #
 
 
@@ -31,121 +31,159 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 
 
 # =========================================================================== #
+# INTERNAL CONSTANTS
+# =========================================================================== #
+
+
+# -- Commands -- #
+
+# Command prefix for listing, creating, or deleting branches.
+GIT_BRANCH := git branch $(Q) $(V)
+
+# Command prefix for switching branches or restoring working tree files.
+GIT_CHECKOUT := git checkout $(Q)
+
+# Command prefix for cloning a repository into a new directory.
+GIT_CLONE := git clone $(Q) $(V)
+
+# Command prefix for committing record changes to the repository.
+GIT_COMMIT := git commit $(Q) $(V)
+
+# Command prefix for creating an empty Git repository or reinitializing an
+# existing one.
+GIT_INIT := git init $(Q)
+
+# Command prefix for joining two or more development histories together.
+GIT_MERGE := git merge $(Q) $(V)
+
+# Command prefix for fetching from and integrating with another repository or
+# a local branch.
+GIT_PULL := git pull $(Q) $(V)
+
+# Command prefix for updating remote refs along with associated objects.
+GIT_PUSH := git push $(Q) $(V)
+
+# Command prefix for managing set of tracked repositories.
+GIT_REMOTE := git remote $(V)
+
+
+# =========================================================================== #
 # USER-DEFINED FUNCTIONS
 # =========================================================================== #
 
 
 # -- Source Code Management (SCM) -- #
 
-# $(call commit,file,type,scope,description)
+# $(call git-commit,file,type,scope,description)
 # Commits a file to Git.
-define commit
+define git-commit
 	git add $1; \
-	git commit $(Q) -m "$2($3): $4"
+	$(GIT_COMMIT) -m "$2($3): $4"
 endef
 
-# $(call commit-modified,file,type,scope)
+# $(call git-commit-modified,file,type,scope)
 # Commits a modified (i.e., existing) file to Git.
-define commit-modified
-	$(call commit,$1,$2,$3,Update $1)
+define git-commit-modified
+	$(call git-commit,$1,$2,$3,Update $1)
 endef
 
-# $(call commit-unstaged,file,type,scope)
+# $(call git-commit-unstaged,file,type,scope)
 # Commits an unstaged (i.e., new) file to Git.
-define commit-unstaged
-	$(call commit,$1,$2,$3,Create $1)
+define git-commit-unstaged
+	$(call git-commit,$1,$2,$3,Create $1)
 endef
 
-# $(call gf-feature-finish,feature)
+# $(call git-flow-feature-finish,feature)
 # Finalizes a Git feature branch.
 # Equivalent to `git flow feature finish $1`, except for:
 # 1. The `--no-edit` option for the `git merge` command.
-define gf-feature-finish
-	git checkout $(Q) develop; \
-	git merge $(Q) --no-edit --no-ff feature/$1; \
-	git branch $(Q) --delete feature/$1
+define git-flow-feature-finish
+	$(GIT_CHECKOUT) develop; \
+	$(GIT_MERGE) --no-edit --no-ff feature/$1; \
+	$(GIT_BRANCH) --delete feature/$1
 endef
 
-# $(call gf-feature-publish,feature)
+# $(call git-flow-feature-publish,feature)
 # Shares a Git feature branch.
 # Equivalent to `git flow feature publish $1`.
-define gf-feature-publish
-	git checkout $(Q) feature/$1; \
-	git push $(Q) origin feature/$1
+define git-flow-feature-publish
+	$(GIT_CHECKOUT) feature/$1; \
+	$(GIT_PUSH) origin feature/$1
 endef
 
-# $(call gf-feature-pull,feature)
+# $(call git-flow-feature-pull,feature)
 # Gets the latest changes for a feature branch.
 # Equivalent to `git flow feature pull origin $1`.
-define gf-feature-pull
-	git checkout $(Q) feature/$1; \
-	git pull $(Q) --rebase origin feature/$1
+define git-flow-feature-pull
+	$(GIT_CHECKOUT) feature/$1; \
+	$(GIT_PULL) --rebase origin feature/$1
 endef
 
-# $(call gf-feature-start,feature)
+# $(call git-flow-feature-start,feature)
 # Creates a Git feature branch.
 # Equivalent to `git flow feature start $1`.
-define gf-feature-start
-	git checkout $(Q) -b feature/$1 develop
+define git-flow-feature-start
+	$(GIT_CHECKOUT) -b feature/$1 develop
 endef
 
-# $(call gf-init,msg)
-# Initializes a Git branching strategy.
+# $(call git-flow-init)
+# (Re)initializes a Git repository and branching strategy.
 # Equivalent to `git flow init`, except for:
-# 1. The value of the commit message.
-define gf-init
-	git init $(Q); \
-	git commit $(Q) --allow-empty -m "feat(git): $1"; \
-	git checkout $(Q) -b develop $(DEFUALT_BRANCH)
+# 1. The value of the commit message;
+# 2. The `git remote add origin` command.
+define git-flow-init
+	$(GIT_INIT); \
+	$(GIT_COMMIT) --allow-empty -m "feat(git): Initial repo setup"; \
+	$(GIT_CHECKOUT) -b develop $(DEFUALT_BRANCH); \
 endef
 
-# $(call gf-release-finish,tag,message)
+# $(call git-flow-release-finish,tag,message)
 # Finalizes a Git release branch.
 # Equivalent to `git flow release finish $1`, except for:
 # 1. The `-m` option for the `git tag` command;
 # 2. The `--no-edit` option for the `git merge` command.
-define gf-release-finish
-	git checkout $(Q) $(DEFUALT_BRANCH); \
-	git merge $(Q) --no-edit --no-ff --quiet release/$1; \
+define git-flow-release-finish
+	$(GIT_CHECKOUT) $(DEFUALT_BRANCH); \
+	$(GIT_MERGE) --no-edit --no-ff release/$1; \
 	git tag --annotate $1 -m "$2"; \
-	git checkout $(Q) develop; \
-	git merge $(Q) --no-edit --no-ff --quiet release/$1; \
-	git branch $(Q) --delete release/$1
+	$(GIT_CHECKOUT) develop; \
+	$(GIT_MERGE) --no-edit --no-ff release/$1; \
+	$(GIT_BRANCH) --delete release/$1
 endef
 
-# $(call gf-release-finish-major,tag,message)
+# $(call git-flow-release-finish-major,tag,message)
 # Finalizes a major Git release branch.
-define gf-release-finish-major
+define git-flow-release-finish-major
 	$(call release-finish,$1,Major release $1 | $2)
 endef
 
-# $(call gf-release-finish-minor,tag,message)
+# $(call git-flow-release-finish-minor,tag,message)
 # Finalizes a minor Git release branch.
-define gf-release-finish-minor
+define git-flow-release-finish-minor
 	$(call release-finish,$1,Minor release $1 | $2)
 endef
 
-# $(call gf-release-publish,tag)
+# $(call git-flow-release-publish,tag)
 # Shares a Git release branch.
 # Equivalent to `git flow release publish $1`.
-define gf-release-publish
-	git checkout $(Q) release/$1;
-	git push $(Q) origin release/$1
+define git-flow-release-publish
+	$(GIT_CHECKOUT) release/$1;
+	$(GIT_PUSH) origin release/$1
 endef
 
-# $(call gf-release-pull,tag)
+# $(call git-flow-release-pull,tag)
 # Gets the latest changes for a Git release branch.
 # Has no equivalent `git flow` command.
-define gf-release-pull
-	git checkout $(Q) release/$1;
-	git pull $(Q) --rebase origin release/$1
+define git-flow-release-pull
+	$(GIT_CHECKOUT) release/$1;
+	$(GIT_PULL) --rebase origin release/$1
 endef
 
-# $(call gf-release-start,tag)
+# $(call git-flow-release-start,tag)
 # Creates a Git release branch.
 # Equivalent to `git flow release start $1`.
-define gf-release-start
-	git checkout $(Q) -b release/$1 develop
+define git-flow-release-start
+	$(GIT_CHECKOUT) -b release/$1 develop
 endef
 
 
@@ -169,32 +207,31 @@ clean-git: | $(LOG)
 .PHONY: git-% git-dot-files
 
 git-dot-files: .gitattributes .gitignore
-	@$(call gf-feature-start,$@)
-	@$(foreach f,$^,$(call commit-unstaged,$(f),feat,git);)
-	@$(call gf-feature-finish,$@)
+	@$(call git-flow-feature-start,$@)
+	@$(foreach f,$^,$(call git-commit-unstaged,$(f),feat,git);)
+	@$(call git-flow-feature-finish,$@)
 
 # -- Prerequisite for "init" Target -- #
 
 .PHONY: init-git init-git-dot-files init-git-flow
 
 ## init-git: Completes all initial Git setup activities.
-init-git: .git init-git-flow git-dot-files
-	@$(call gf-release-start,0.1.0); \
-	$(call gf-release-finish-minor,0.1.0,Initial project setup)
-
-#init-git: .gitignore .git | $(LOG)
-#	@printf "Committing the initial project to the $(DEFUALT_BRANCH) branch..."
-#	@git checkout -b $(DEFUALT_BRANCH) >$(LOG) 2>&1; \
-#	$(status_result)
-#	@printf "Syncing the initial project with the origin..."
-#	@git remote add origin $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
-#	git pull origin $(DEFUALT_BRANCH) >$(LOG) 2>&1; \
-#	git push -u origin $(DEFUALT_BRANCH) >$(LOG) 2>&1; \
-#	$(status_result)
+init-git: .git init-git-flow git-dot-files | $(LOG)
+	$(eval release_tag = 0.1.0)
+	$(eval release_msg = Initial project setup)
+	@$(call git-flow-release-start,$(release_tag)); \
+	$(call git-flow-release-finish-minor,$(release_tag),$(release_msg)); \
+	$(call step,Releasing the initial project as version $(release_tag),$(DONE))
+ifeq ($(GH_ORIGIN_URL),)
+	$(GIT_PUSH) --all -u origin >$(LOG) 2>&1; \
+	$(call step,Syncing the initial project with the origin,$(DONE))
+endif
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
-	@git flow init -d >$(LOG) 2>&1; \
+	#@git flow init -d >$(LOG) 2>&1; \
+
+	@$(call git-flow-init); \
 	$(call step,Initializing git-flow branching strategy,$(DONE))
 
 
@@ -206,10 +243,10 @@ init-git-flow: | $(LOG)
 ## .git: Makes a Git repository.
 .git: | $(LOG)
 ifeq ($(GH_ORIGIN_URL),)
-	@git init >$(LOG) 2>&1; \
+	@$(GIT_INIT) >$(LOG) 2>&1; \
 	$(call step,Initializing Git repository,$(DONE))
 else
-	@git clone $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
+	@$(GIT_CLONE) $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
 	$(call step,Cloning Git repository from '$(GH_ORIGIN_URL)',$(DONE))
 endif
 
