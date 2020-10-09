@@ -134,7 +134,7 @@ endef
 define git-flow-init
 	$(GIT_INIT); \
 	$(GIT_COMMIT) --allow-empty -m "feat(git): Initial repo setup"; \
-	$(GIT_CHECKOUT) -b develop $(DEFUALT_BRANCH); \
+	$(GIT_CHECKOUT) -b develop $(DEFUALT_BRANCH)
 endef
 
 # $(call git-flow-release-finish,tag,message)
