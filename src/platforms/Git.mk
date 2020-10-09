@@ -223,7 +223,7 @@ init-git: .git init-git-flow git-dot-files | $(LOG)
 	$(call git-flow-release-finish-minor,$(release_tag),$(release_msg)); \
 	$(call step,Releasing the initial project as version $(release_tag),$(DONE))
 ifeq ($(GH_ORIGIN_URL),)
-	$(GIT_PUSH) --all -u origin >$(LOG) 2>&1; \
+	@$(GIT_PUSH) --all -u origin >$(LOG) 2>&1; \
 	$(call step,Syncing the initial project with the origin,$(DONE))
 endif
 
