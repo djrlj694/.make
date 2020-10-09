@@ -128,9 +128,8 @@ endef
 
 # $(call git-flow-init)
 # (Re)initializes a Git repository and branching strategy.
-# Equivalent to `git flow init`, except for:
-# 1. The value of the commit message;
-# 2. The `git remote add origin` command.
+# Equivalent to `git flow init -d`, except for:
+# 1. The value of the commit message.
 define git-flow-init
 	$(GIT_INIT); \
 	$(GIT_COMMIT) --allow-empty -m "feat(git): Initial repo setup"; \
@@ -154,13 +153,13 @@ endef
 # $(call git-flow-release-finish-major,tag,message)
 # Finalizes a major Git release branch.
 define git-flow-release-finish-major
-	$(call release-finish,$1,Major release $1 | $2)
+	$(call git-flow-release-finish,$1,Major release $1 | $2)
 endef
 
 # $(call git-flow-release-finish-minor,tag,message)
 # Finalizes a minor Git release branch.
 define git-flow-release-finish-minor
-	$(call release-finish,$1,Minor release $1 | $2)
+	$(call git-flow-release-finish,$1,Minor release $1 | $2)
 endef
 
 # $(call git-flow-release-publish,tag)
@@ -220,7 +219,7 @@ init-git: .git init-git-flow git-dot-files | $(LOG)
 	$(eval release_tag = 0.1.0)
 	$(eval release_msg = Initial project setup)
 	@$(call git-flow-release-start,$(release_tag)); \
-	$(call git-flow-release-finish,$(release_tag),Minor release | $(release_msg)); \
+	$(call git-flow-release-finish-minor,$(release_tag),$(release_msg)); \
 	$(call step,Releasing the initial project as version $(release_tag),$(DONE))
 ifneq ($(GH_ORIGIN_URL),)
 	@$(GIT_PUSH) --all -u origin >$(LOG) 2>&1; \
@@ -229,9 +228,7 @@ endif
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
-	#@git flow init -d >$(LOG) 2>&1; \
-
-	@$(call git-flow-init); \
+	@$(call git-flow-init) >$(LOG) 2>&1; \
 	$(call step,Initializing git-flow branching strategy,$(DONE))
 
 
