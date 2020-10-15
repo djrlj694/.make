@@ -58,19 +58,19 @@ endif
 # 5. DEBUG
 # 6. TRACE
 define log-str
-	echo "$(date +%Y-%m-%dT%H:%M:%S%z)|$1!$2"
+	echo "$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2"
 endef
 
 # $(call mark-start)
 # Prints an informational log message marking the start of a target.
 define mark-start
-	$(LOGGING) && $(call log-str,INFO,Start of target "$@".)
+	$(LOGGING) && $(call log-str,INFO,Start of target $@.)
 endef
 
 # $(call mark-end)
 # Prints an informational log message marking the end of a target.
 define mark-end
-	$(LOGGING) && $(call log-str,INFO,End of target "$@".)
+	$(LOGGING) && $(call log-str,INFO,End of target $@.)
 endef
 
 
