@@ -68,11 +68,15 @@ endif
 
 ## clean-github: Completes all GitHub cleanup activities.
 clean-github: clean-docs-github
+	@$(call mark-start)
+	@$(call mark-end)
 
 ## clean-docs-github: Completes all GitHub Markdown cleanup activities.
 clean-docs-github: | $(LOG)
+	@$(call mark-start)
 	@$(RM) .github $(STDOUT); \
 	$(call status-msg,Removing GitHub documents)
+	@$(call mark-end)
 
 # -- Prerequisite for "docs" Target -- #
 
@@ -80,6 +84,8 @@ clean-docs-github: | $(LOG)
 
 ## docs-github: Completes all GitHub document generation activites.
 docs-github: $(GITHUB_FILES)
+	@$(call mark-start)
+	@$(call mark-end)
 
 # -- Prerequisites for "init" Target -- #
 
@@ -87,5 +93,7 @@ docs-github: $(GITHUB_FILES)
 
 ## init-github: Completes all initial Github setup activites.
 init-github:
+	@$(call mark-start)
 	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
 	$(call status-msg,Initializing GitHub repository)
+	@$(call mark-end)
