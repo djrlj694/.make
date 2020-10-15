@@ -58,7 +58,7 @@ endif
 # 5. DEBUG
 # 6. TRACE
 define log-str
-	@echo "$(date +%Y-%m-%dT%H:%M:%S%z)|$1!$2"
+	echo "$(date +%Y-%m-%dT%H:%M:%S%z)|$1!$2"
 endef
 
 # $(call mark-start)
