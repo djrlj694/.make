@@ -23,7 +23,7 @@
 # -- Logging -- #
 
 # 0 = false, 1 = true
-LOGGING ?= 0
+LOGGING ?= false
 
 
 # =========================================================================== #
@@ -64,17 +64,13 @@ endef
 # $(call mark-start)
 # Prints an informational log message marking the start of a target.
 define mark-start
-ifneq ($(LOGGING),0)
-	$(call log-str,INFO,Start of target "$@".)
-endif
+	$(LOGGING) && $(call log-str,INFO,Start of target "$@".)
 endef
 
 # $(call mark-end)
 # Prints an informational log message marking the end of a target.
 define mark-end
-ifneq ($(LOGGING),0)
-	$(call log-str,INFO,Start of target "$@".)
-endif
+	$(LOGGING) && $(call log-str,INFO,End of target "$@".)
 endef
 
 
