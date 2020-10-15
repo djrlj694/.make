@@ -198,17 +198,21 @@ endef
 
 ## clean-git: Completes all git cleanup activities.
 clean-git: | $(LOG)
+	@$(call mark-start)
 	@${RM} .git* $(STDOUT); \
 	$(call status-msg,Removing Git setup)
+	@$(call mark-end)
 
 # -- Prerequisite for "git" Target -- #
 
 .PHONY: git-% git-dot-files
 
 git-dot-files: .gitattributes .gitignore
+	@$(call mark-start)
 	@$(call git-flow-feature-start,$@)
 	@$(foreach f,$^,$(call git-commit-unstaged,$(f),feat,git);)
 	@$(call git-flow-feature-finish,$@)
+	@$(call mark-end)
 
 # -- Prerequisite for "init" Target -- #
 
@@ -216,6 +220,7 @@ git-dot-files: .gitattributes .gitignore
 
 ## init-git: Completes all initial Git setup activities.
 init-git: .git init-git-flow git-dot-files | $(LOG)
+	@$(call mark-start)
 	$(eval release_tag = 0.1.0)
 	$(eval release_tag_cyan = $(FG_CYAN)$(release_tag)$(RESET))
 	$(eval release_msg = Initial project setup)
@@ -226,11 +231,14 @@ ifneq ($(GH_ORIGIN_URL),)
 	@$(GIT_PUSH) --all -u origin $(STDOUT); \
 	$(call status-msg,Syncing initial project with origin)
 endif
+	@$(call mark-end)
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
+	@$(call mark-start)
 	@$(call git-flow-init) $(STDOUT); \
 	$(call status-msg,Initializing git-flow branching strategy)
+	@$(call mark-end)
 
 
 # =========================================================================== #
@@ -240,6 +248,7 @@ init-git-flow: | $(LOG)
 
 ## .git: Makes a Git repository.
 .git: | $(LOG)
+	@$(call mark-start)
 ifeq ($(GH_ORIGIN_URL),)
 	@$(GIT_INIT) $(STDOUT); \
 	$(call status-msg,Initializing Git repository)
@@ -247,6 +256,7 @@ else
 	@$(GIT_CLONE) $(GH_ORIGIN_URL) $(STDOUT); \
 	$(call status-msg,Cloning Git repository from '$(GH_ORIGIN_URL)')
 endif
+	@$(call mark-end)
 
 
 # =========================================================================== #
@@ -256,29 +266,37 @@ endif
 
 ## .gitattributes: Makes a .gitattributes file.
 .gitattributes:
+	@$(call mark-start)
 	@echo "# Auto detect text files and perform LF normalization" >$@; \
 	echo "* text=auto" >>$@; \
 	$(call status-msg,Making file $(target_var))
+	@$(call mark-end)
 
 ## .gitignore: Makes a .gitignore file.
 .gitignore:
+	@$(call mark-start)
 	$(eval base_url = https://www.toptal.com)
 	$(eval path = /developers/gitignore/api/)
 	$(eval url = $(base_url)$(path)$(TOOLCHAIN))
 	@$(CURL) $(url) --output $@ >$@; \
 	$(call status-msg,Downloading file $(target_var))
+	@$(call mark-end)
 
 ## ~/.gitconfig: Makes a .gitattributes file.
 ~/.gitconfig:
+	@$(call mark-start)
 	@git config --global user.name
 	$(call status-msg,Making file $(target_var))
+	@$(call mark-end)
 
 # Makes a special empty file for marking that a directory tree has been generated.
 %/.gitkeep:
+	@$(call mark-start)
 	@MKDIR $(@D); \
 	$(call status-msg,Making missing directories in the path of marker file $(target_var))
 	@touch $@; \
 	$(call status-msg,Making marker file $(target_var))
+	@$(call mark-end)
 
 
 # =========================================================================== #
