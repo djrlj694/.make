@@ -37,7 +37,46 @@ LOG := make.log
 
 # -- Logging -- #
 
+ifneq ($(VERBOSE),0)
 STDOUT = >$(LOG) 2>&1
+endif
+
+
+# =========================================================================== #
+# USER-DEFINED FUNCTIONS
+# =========================================================================== #
+
+
+# -- Logging -- #
+
+# $(call log-str,log-type,msg)
+# Prints a log message of a specified type:
+# 1. FATAL
+# 2. ERROR
+# 3. WARN
+# 4. INFO
+# 5. DEBUG
+# 6. TRACE
+define log-str
+	@echo "$(date +%Y-%m-%dT%H:%M:%S%z)|$1!$2"
+endef
+
+# $(call mark-start)
+# Prints an informational log message marking the start of a target.
+define mark-start
+ifneq ($(LOGGING),0)
+	$(call log-str,INFO,Start of target "$@".)
+endif
+endef
+
+# $(call mark-end)
+# Prints an informational log message marking the end of a target.
+define mark-end
+ifneq ($(LOGGING),0)
+	$(call log-str,INFO,Start of target "$@".)
+endif
+endef
+
 
 
 # =========================================================================== #
