@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-28
-# REVISED: 2020-09-30
+# REVISED: 2020-10-15
 # =========================================================================== #
 
 
@@ -71,9 +71,8 @@ clean-github: clean-docs-github
 
 ## clean-docs-github: Completes all GitHub Markdown cleanup activities.
 clean-docs-github: | $(LOG)
-	@printf "Removing GitHub documents..."
-	@$(RM) .github >$(LOG) 2>&1; \
-	$(status_result)
+	@$(RM) .github $(STDOUT); \
+	$(call status-msg,Removing GitHub documents)
 
 # -- Prerequisite for "docs" Target -- #
 
@@ -88,6 +87,5 @@ docs-github: $(GITHUB_FILES)
 
 ## init-github: Completes all initial Github setup activites.
 init-github:
-	$(eval msg = Initializing GitHub repository)
 	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
-	$(call step,$(msg),$(DONE))
+	$(call status-msg,Initializing GitHub repository)

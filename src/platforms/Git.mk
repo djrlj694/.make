@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-10-01
-# REVISED: 2020-10-09
+# REVISED: 2020-10-15
 # =========================================================================== #
 
 
@@ -198,8 +198,8 @@ endef
 
 ## clean-git: Completes all git cleanup activities.
 clean-git: | $(LOG)
-	@${RM} .git* >$(LOG) 2>&1; \
-	$(call step,Removing Git setup,$(DONE))
+	@${RM} .git* $(STDOUT); \
+	$(call status-msg,Removing Git setup)
 
 # -- Prerequisite for "git" Target -- #
 
@@ -221,16 +221,16 @@ init-git: .git init-git-flow git-dot-files | $(LOG)
 	$(eval release_msg = Initial project setup)
 	@$(call git-flow-release-start,$(release_tag)); \
 	$(call git-flow-release-finish-minor,$(release_tag),$(release_msg)); \
-	$(call step,Releasing initial project as version $(release_tag_cyan),$(DONE))
+	$(call status-msg,Releasing initial project as version $(release_tag_cyan))
 ifneq ($(GH_ORIGIN_URL),)
-	@$(GIT_PUSH) --all -u origin >$(LOG) 2>&1; \
-	$(call step,Syncing initial project with origin,$(DONE))
+	@$(GIT_PUSH) --all -u origin $(STDOUT); \
+	$(call status-msg,Syncing initial project with origin)
 endif
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
-	@$(call git-flow-init) >$(LOG) 2>&1; \
-	$(call step,Initializing git-flow branching strategy,$(DONE))
+	@$(call git-flow-init) $(STDOUT); \
+	$(call status-msg,Initializing git-flow branching strategy)
 
 
 # =========================================================================== #
@@ -241,11 +241,11 @@ init-git-flow: | $(LOG)
 ## .git: Makes a Git repository.
 .git: | $(LOG)
 ifeq ($(GH_ORIGIN_URL),)
-	@$(GIT_INIT) >$(LOG) 2>&1; \
-	$(call step,Initializing Git repository,$(DONE))
+	@$(GIT_INIT) $(STDOUT); \
+	$(call status-msg,Initializing Git repository)
 else
-	@$(GIT_CLONE) $(GH_ORIGIN_URL) >$(LOG) 2>&1; \
-	$(call step,Cloning Git repository from '$(GH_ORIGIN_URL)',$(DONE))
+	@$(GIT_CLONE) $(GH_ORIGIN_URL) $(STDOUT); \
+	$(call status-msg,Cloning Git repository from '$(GH_ORIGIN_URL)')
 endif
 
 
@@ -258,7 +258,7 @@ endif
 .gitattributes:
 	@echo "# Auto detect text files and perform LF normalization" >$@; \
 	echo "* text=auto" >>$@; \
-	$(call step,Making file $(target_var),$(DONE))
+	$(call status-msg,Making file $(target_var))
 
 ## .gitignore: Makes a .gitignore file.
 .gitignore:
@@ -266,19 +266,19 @@ endif
 	$(eval path = /developers/gitignore/api/)
 	$(eval url = $(base_url)$(path)$(TOOLCHAIN))
 	@$(CURL) $(url) --output $@ >$@; \
-	$(call step,Downloading file $(target_var),$(DONE))
+	$(call status-msg,Downloading file $(target_var))
 
 ## ~/.gitconfig: Makes a .gitattributes file.
 ~/.gitconfig:
 	@git config --global user.name
-	$(call step,Making file $(target_var),$(DONE))
+	$(call status-msg,Making file $(target_var))
 
 # Makes a special empty file for marking that a directory tree has been generated.
 %/.gitkeep:
 	@MKDIR $(@D); \
-	$(call step,Making missing directories in the path of marker file $(target_var),$(DONE))
+	$(call status-msg,Making missing directories in the path of marker file $(target_var))
 	@touch $@; \
-	$(call step,Making marker file $(target_var),$(DONE))
+	$(call status-msg,Making marker file $(target_var))
 
 
 # =========================================================================== #
