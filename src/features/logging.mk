@@ -11,7 +11,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-10-15
+# REVISED: 2020-10-16
 # =========================================================================== #
 
 
@@ -19,27 +19,18 @@
 # EXTERNAL CONSTANTS
 # =========================================================================== #
 
-
-# -- Logging -- #
-
-# 0 = false, 1 = true
-LOGGING ?= false
-
-
-# =========================================================================== #
-# INTERNAL CONSTANTS
-# =========================================================================== #
-
-
 # -- Filesystem -- #
 
+# Conditionally set the name of the log file.
 LOG := make.log
 
 # -- Logging -- #
 
-ifneq ($(VERBOSE),0)
-STDOUT = >$(LOG) 2>&1
-endif
+# Conditionally set the flag for logging: true or false.
+LOGGING ?= false
+
+# Conditionally set where to direct standard output/error.
+STDOUT ?= >$(LOG) 2>&1
 
 
 # =========================================================================== #
@@ -58,13 +49,7 @@ endif
 # 5. DEBUG
 # 6. TRACE
 define log-str
-	echo "$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2"
-endef
-
-# $(call mark-start)
-# Prints an informational log message marking the start of a target.
-define mark-start
-	$(LOGGING) && $(call log-str,INFO,Start of target $@.)
+	echo "$$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2"
 endef
 
 # $(call mark-end)
@@ -73,6 +58,11 @@ define mark-end
 	$(LOGGING) && $(call log-str,INFO,End of target $@.)
 endef
 
+# $(call mark-start)
+# Prints an informational log message marking the start of a target.
+define mark-start
+	$(LOGGING) && $(call log-str,INFO,Start of target $@.)
+endef
 
 
 # =========================================================================== #
