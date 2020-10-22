@@ -23,26 +23,27 @@
 # -- Error Capture -- #
 
 # $(call rc-msg,msg,success-str)
-# Echos a message, followed by a success string ($DONE or $PASSED) or failure
-# string ($FAILED), depending on the return code ($$?) from the previously
-# executed command.
+# Prints a message, followed by a success string ($DONE or $PASSED) or
+# failure string ($FAILED), depending on the return code ($$?) from the
+# previously executed command.
 define rc-msg
 	[ $$? -eq 0 ] && echo "$1...$2" || echo "$1...$(FAILED)"
 endef
 
 # $(call status-msg,msg)
-# Echos a message, followed by a success string ($DONE) or failure string
+# Prints a message, followed by a success string ($DONE) or failure string
 # ($FAILED), depending on the return code ($$?) from the previously executed
-# command.  Intended for communicating the outcome status of a non-test target
-# rule.
+# command.  Intended for communicating the outcome status of a non-test
+# target rule.
 define status-msg
 	$(call rc-msg,$1,$(DONE))
 endef
 
 # $(call status-msg,msg)
-# Echos a message, followed by a success string ($PASS) or failure string
+# Prints a message, followed by a success string ($PASS) or failure string
 # ($FAILED), depending on the return code ($$?) from the previously executed
-# command.  Intended for communicating the outcome status of a test target rule.
+# command.  Intended for communicating the outcome status of a test target
+# rule.
 define test-msg
 	$(call test-msg,$1,$(PASS))
 endef
@@ -62,13 +63,13 @@ define log-msg
 endef
 
 # $(call recipe-end-msg)
-# Prints an informational log message marking the end of a target.
+# Prints an informational log message marking the end of a target's recipe.
 define recipe-end-msg
-	$(call log-msg,INFO,End of target $@.)
+	$(call log-msg,INFO,End of recipe for target $@.)
 endef
 
 # $(call recipe-start-msg)
-# Prints an informational log message marking the start of a target.
+# Prints an informational log message marking the start of a target's recipe.
 define recipe-start-msg
-	$(call log-msg,INFO,Start of target $@.)
+	$(call log-msg,INFO,Start of recipe for target $@.)
 endef

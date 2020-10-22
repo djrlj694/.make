@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-28
-# REVISED: 2020-10-21
+# REVISED: 2020-10-22
 # =========================================================================== #
 
 
@@ -68,15 +68,15 @@ endif
 
 ## clean-github: Completes all GitHub cleanup activities.
 clean-github: clean-docs-github
-	@$(call recipe-start)
-	@$(call recipe-end)
+	@$(call recipe-start-msg)
+	@$(call recipe-end-msg)
 
 ## clean-docs-github: Completes all GitHub Markdown cleanup activities.
 clean-docs-github: | $(LOG)
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@$(RM) .github $(STDOUT); \
 	$(call status-msg,Removing GitHub documents)
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 # -- Prerequisite for "docs" Target -- #
 
@@ -84,8 +84,8 @@ clean-docs-github: | $(LOG)
 
 ## docs-github: Completes all GitHub document generation activites.
 docs-github: $(GITHUB_FILES)
-	@$(call recipe-start)
-	@$(call recipe-end)
+	@$(call recipe-start-msg)
+	@$(call recipe-end-msg)
 
 # -- Prerequisites for "init" Target -- #
 
@@ -93,7 +93,7 @@ docs-github: $(GITHUB_FILES)
 
 ## init-github: Completes all initial Github setup activites.
 init-github:
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
 	$(call status-msg,Initializing GitHub repository)
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
