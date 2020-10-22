@@ -27,7 +27,7 @@
 # command.
 define rc-msg
 export RC=$$?; \
-$(call rc-log-msg,$$RC,$1); \
+$(call rc-log-msg,$$RC,$1) $(STDOUT); \
 $(call rc-status-msg,$$RC,$1.)
 endef
 
