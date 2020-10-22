@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-10-01
-# REVISED: 2020-10-21
+# REVISED: 2020-10-22
 # =========================================================================== #
 
 
@@ -198,21 +198,21 @@ endef
 
 ## clean-git: Completes all git cleanup activities.
 clean-git: | $(LOG)
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@${RM} .git* $(STDOUT); \
 	$(call status-msg,Removing Git setup)
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 # -- Prerequisite for "git" Target -- #
 
 .PHONY: git-% git-dot-files
 
 git-dot-files: .gitattributes .gitignore
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@$(call git-flow-feature-start,$@)
 	@$(foreach f,$^,$(call git-commit-unstaged,$(f),feat,git);)
 	@$(call git-flow-feature-finish,$@)
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 # -- Prerequisite for "init" Target -- #
 
@@ -220,7 +220,7 @@ git-dot-files: .gitattributes .gitignore
 
 ## init-git: Completes all initial Git setup activities.
 init-git: .git init-git-flow git-dot-files | $(LOG)
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	$(eval release_tag = 0.1.0)
 	$(eval release_tag_cyan = $(FG_CYAN)$(release_tag)$(RESET))
 	$(eval release_msg = Initial project setup)
@@ -231,14 +231,14 @@ ifneq ($(GH_ORIGIN_URL),)
 	@$(GIT_PUSH) --all -u origin $(STDOUT); \
 	$(call status-msg,Syncing initial project with origin)
 endif
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 ## init-git-flow: Initializes git-flow setup.
 init-git-flow: | $(LOG)
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@$(call git-flow-init) $(STDOUT); \
 	$(call status-msg,Initializing git-flow branching strategy)
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 
 # =========================================================================== #
@@ -248,7 +248,7 @@ init-git-flow: | $(LOG)
 
 ## .git: Makes a Git repository.
 .git: | $(LOG)
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 ifeq ($(GH_ORIGIN_URL),)
 	@$(GIT_INIT) $(STDOUT); \
 	$(call status-msg,Initializing Git repository)
@@ -256,7 +256,7 @@ else
 	@$(GIT_CLONE) $(GH_ORIGIN_URL) $(STDOUT); \
 	$(call status-msg,Cloning Git repository from '$(GH_ORIGIN_URL)')
 endif
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 
 # =========================================================================== #
@@ -266,37 +266,37 @@ endif
 
 ## .gitattributes: Makes a .gitattributes file.
 .gitattributes:
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@echo "# Auto detect text files and perform LF normalization" >$@; \
 	echo "* text=auto" >>$@; \
 	$(call status-msg,Making file $(target_var))
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 ## .gitignore: Makes a .gitignore file.
 .gitignore:
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	$(eval base_url = https://www.toptal.com)
 	$(eval path = /developers/gitignore/api/)
 	$(eval url = $(base_url)$(path)$(TOOLCHAIN))
 	@$(CURL) $(url) --output $@ >$@; \
 	$(call status-msg,Downloading file $(target_var))
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 ## ~/.gitconfig: Makes a .gitattributes file.
 ~/.gitconfig:
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@git config --global user.name
 	$(call status-msg,Making file $(target_var))
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 # Makes a special empty file for marking that a directory tree has been generated.
 %/.gitkeep:
-	@$(call recipe-start)
+	@$(call recipe-start-msg)
 	@MKDIR $(@D); \
 	$(call status-msg,Making missing directories in the path of marker file $(target_var))
 	@touch $@; \
 	$(call status-msg,Making marker file $(target_var))
-	@$(call recipe-end)
+	@$(call recipe-end-msg)
 
 
 # =========================================================================== #
