@@ -75,7 +75,7 @@ clean-github: clean-docs-github
 clean-docs-github: | $(LOG)
 	@$(call recipe-start-msg)
 	@$(RM) .github $(STDOUT); \
-	$(call status-msg,Removing GitHub documents)
+	$(call rc-msg,Removing GitHub documents)
 	@$(call recipe-end-msg)
 
 # -- Prerequisite for "docs" Target -- #
@@ -95,5 +95,5 @@ docs-github: $(GITHUB_FILES)
 init-github:
 	@$(call recipe-start-msg)
 	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
-	$(call status-msg,Initializing GitHub repository)
+	$(call rc-msg,Initializing GitHub repository)
 	@$(call recipe-end-msg)
