@@ -11,7 +11,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-10-15
+# REVISED: 2020-10-21
 # =========================================================================== #
 
 
@@ -67,36 +67,3 @@ subdir_var = $(FG_CYAN)$(shell basename $(@D))$(RESET)
 # Color-formatted names of makefile automatic variables.
 prereq_var = $(FG_CYAN)$<$(RESET)
 target_var = $(FG_CYAN)$@$(RESET)
-
-
-# =========================================================================== #
-# USER-DEFINED FUNCTIONS
-# =========================================================================== #
-
-
-# -- Error Capture -- #
-
-# $(call rc-str,msg,success-str)
-# Prints a message, followed by a success string ($DONE or $PASSED) or failure
-# string ($FAILED), depending on the return code ($$?) from the previously
-# executed command.
-define rc-str
-	[ $$? -eq 0 ] && echo "$1...$2" || echo "$1...$(FAILED)"
-endef
-
-# $(call status-str,msg)
-# Prints a message, followed by a success string ($DONE) or failure string
-# ($FAILED), depending on the return code ($$?) from the previously executed
-# command.  Intended for communicating the outcome status of a non-test target
-# rule.
-define status-str
-	$(call rc-str,$1,$(DONE))
-endef
-
-# $(call status-str,msg)
-# Prints a message, followed by a success string ($PASS) or failure string
-# ($FAILED), depending on the return code ($$?) from the previously executed
-# command.  Intended for communicating the outcome status of a test target rule.
-define test-str
-	$(call rc-str,$1,$(PASS))
-endef
