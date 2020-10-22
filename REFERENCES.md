@@ -94,3 +94,10 @@ API documentation, tutorials, and other online references and made portions of t
 ### Licensing
 
 1. https://choosealicense.com
+
+## Software Engineering
+
+### Logging
+
+1. https://www.scalyr.com/blog/log-formatting-best-practices-readable/
+2. https://en.wikipedia.org/wiki/ISO_8601
