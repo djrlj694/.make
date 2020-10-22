@@ -22,30 +22,34 @@
 
 # -- Error Capture -- #
 
-# $(call rc-msg,msg,success-str)
-# Prints a message, followed by a success string ($DONE or $PASSED) or
-# failure string ($FAILED), depending on the return code ($$?) from the
-# previously executed command.
+# $(call rc-msg,msg)
+# Prints messages, based on the return code ($1) from the previously executed
+# command.
 define rc-msg
-	[ $$? -eq 0 ] && echo "$1...$2" || echo "$1...$(FAILED)"
+export RC=$$?; \
+$(call rc-log-msg,$$RC,$1); \
+$(call rc-status-msg,$$RC,$1.)
 endef
 
-# $(call status-msg,msg)
-# Prints a message, followed by a success string ($DONE) or failure string
-# ($FAILED), depending on the return code ($$?) from the previously executed
-# command.  Intended for communicating the outcome status of a non-test
-# target rule.
-define status-msg
-	$(call rc-msg,$1,$(DONE))
+# $(call rc-log-msg,rc,msg)
+# Prints a log-oriented message, based on the return code ($1) from the
+# previously executed command.
+define rc-log-msg
+[ $1 -eq 0 ] && $(call log-msg,INFO,$2) || $(call log-msg,ERROR,$2)
 endef
 
-# $(call status-msg,msg)
-# Prints a message, followed by a success string ($PASS) or failure string
-# ($FAILED), depending on the return code ($$?) from the previously executed
-# command.  Intended for communicating the outcome status of a test target
-# rule.
-define test-msg
-	$(call test-msg,$1,$(PASS))
+# $(call rc-status-msg,rc,msg)
+# Prints a status-orient message, based on the return code ($1) from the
+# previously executed command.
+define rc-status-msg
+[ $1 -eq 0 ] && echo "$2...$(DONE)" || echo "$2...$(FAILED)"
+endef
+
+# $(call rc-test-msg,rc,msg)
+# Prints a test-oriented message, based on the return code ($1) from the
+# previously executed.
+define rc-test-msg
+[ $1 -eq 0 ] && echo "$2...$(PASS)" || echo "$2...$(FAILED)"
 endef
 
 # -- Logging -- #
@@ -59,17 +63,17 @@ endef
 # 5. DEBUG
 # 6. TRACE
 define log-msg
-	$(LOGGING) && echo "$$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2"
+($(LOGGING) && echo "$$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2")
 endef
 
 # $(call recipe-end-msg)
 # Prints an informational log message marking the end of a target's recipe.
 define recipe-end-msg
-	$(call log-msg,INFO,End of recipe for target $@.)
+$(call log-msg,INFO,End of recipe for target $@.)
 endef
 
 # $(call recipe-start-msg)
 # Prints an informational log message marking the start of a target's recipe.
 define recipe-start-msg
-	$(call log-msg,INFO,Start of recipe for target $@.)
+$(call log-msg,INFO,Start of recipe for target $@.)
 endef
