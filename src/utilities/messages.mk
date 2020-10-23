@@ -84,9 +84,9 @@ endef
 # command.
 define cmd-msg
 if [ $$? -eq 0 ]; then \
-$(call log-msg,$(INFO),$2); $(call user-msg,$(DONE),$2); \
+$(call log-msg,$(INFO),$1); $(call user-msg,$(DONE),$1); \
 else \
-$(call log-msg,$(ERROR),$2); $(call user-msg,$(FAILED),$2); \
+$(call log-msg,$(ERROR),$1); $(call user-msg,$(FAILED),$1); \
 fi
 endef
 
@@ -95,8 +95,8 @@ endef
 # command or test.
 define test-msg
 if [ $$? -eq 0 ]; then \
-$(call log-msg,$(INFO),$2); $(call user-msg,$(PASSED),$2); \
+$(call log-msg,$(INFO),$1); $(call user-msg,$(PASSED),$1); \
 else \
-$(call log-msg,$(WARN),$2); $(call user-msg,$(FAILED),$2); \
+$(call log-msg,$(WARN),$1); $(call user-msg,$(FAILED),$1); \
 fi
 endef
