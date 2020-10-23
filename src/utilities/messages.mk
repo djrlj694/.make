@@ -5,7 +5,8 @@
 # PROGRAM: messages.mk
 #
 # PURPOSE:
-# To standardize how status/test/log messages are formatted.
+# To standardize how messages to standard out (STDOUT) / error (STDERR) are
+# formatted.
 #
 # AUTHORS:
 # 1. Robert (Bob) L. Jones
