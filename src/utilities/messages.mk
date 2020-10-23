@@ -11,8 +11,29 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-10-21
-# REVISED: 2020-10-22
+# REVISED: 2020-10-23
 # =========================================================================== #
+
+
+# =========================================================================== #
+# INTERNAL CONSTANTS
+# =========================================================================== #
+
+
+# -- Formatted Strings -- #
+
+# Color-formatted log types.
+ERROR := $(FG_RED)ERROR$(RESET)
+FATAL := $(FG_RED)FATAL$(RESET)
+INFO := $(FG_GREEN)INFO$(RESET)
+PASSED := $(FG_GREEN)PASSED$(RESET)
+WARN := $(FG_YELLOW)WARN$(RESET)
+
+# Color-formatted outcome statuses.
+DONE := $(FG_GREEN)done$(RESET).
+FAILED := $(FG_RED)failed$(RESET).
+IGNORE := $(FG_YELLOW)ignore$(RESET).
+PASSED := $(FG_GREEN)passed$(RESET).
 
 
 # =========================================================================== #
@@ -22,40 +43,34 @@
 
 # -- Error Capture -- #
 
-# $(call rc-msg,msg)
-# Prints messages, based on the return code ($1) from the previously executed
+# $(call cmd-msg,msg)
+# =========================================================================== #
+# Prints messages, based on the return code ($?) from a previously run
 # command.
-define rc-msg
-export RC=$$?; \
-$(call rc-log-msg,$$RC,$1.) >$(LOG) 2>&1; \
-$(call rc-status-msg,$$RC,$1)
+define cmd-msg
+if [ $$? -eq 0 ]; then \
+$(call log-msg,$(INFO),$2); $(call user-msg,$(DONE),$2); \
+else \
+$(call log-msg,$(ERROR),$2); $(call user-msg,$(FAILED),$2); \
+fi
 endef
 
-# $(call rc-log-msg,rc,msg)
-# Prints a log-oriented message, based on the return code ($1) from the
-# previously executed command.
-define rc-log-msg
-[ $1 -eq 0 ] && $(call log-msg,INFO,$2) || $(call log-msg,ERROR,$2)
-endef
-
-# $(call rc-status-msg,rc,msg)
-# Prints a status-orient message, based on the return code ($1) from the
-# previously executed command.
-define rc-status-msg
-[ $1 -eq 0 ] && echo "$2...$(DONE)" || echo "$2...$(FAILED)"
-endef
-
-# $(call rc-test-msg,rc,msg)
-# Prints a test-oriented message, based on the return code ($1) from the
-# previously executed.
-define rc-test-msg
-[ $1 -eq 0 ] && echo "$2...$(PASS)" || echo "$2...$(FAILED)"
+# $(call test-msg,msg)
+# Prints messages, based on the return code ($?) from a previously run test.
+# command or test.
+define test-msg
+if [ $$? -eq 0 ]; then \
+$(call log-msg,$(INFO),$2); $(call user-msg,$(PASSED),$2); \
+else \
+$(call log-msg,$(WARN),$2); $(call user-msg,$(FAILED),$2); \
+fi
 endef
 
 # -- Logging -- #
 
 # $(call log-msg,log-type,msg)
-# Prints a log message of a specified type:
+# Prints a specially formattted message for logging purposes.  Log message
+# types, ranked by severity frrom highest to lowest, are as follows:
 # 1. FATAL
 # 2. ERROR
 # 3. WARN
@@ -63,17 +78,26 @@ endef
 # 5. DEBUG
 # 6. TRACE
 define log-msg
-($(LOGGING) && echo "$$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2")
+($(LOGGING) && echo "$$(date +%Y-%m-%dT%H:%M:%S%z)|$1|$2." $(STDOUT))
 endef
 
 # $(call recipe-end-msg)
-# Prints an informational log message marking the end of a target's recipe.
+# Prints a trace log message marking the end of a target's recipe.
 define recipe-end-msg
-$(call log-msg,INFO,End of recipe for target $@.)
+$(call log-msg,TRACE,End of recipe for target $(target_var))
 endef
 
 # $(call recipe-start-msg)
-# Prints an informational log message marking the start of a target's recipe.
+# Prints a trace log message marking the start of a target's recipe.
 define recipe-start-msg
-$(call log-msg,INFO,Start of recipe for target $@.)
+$(call log-msg,TRACE,Start of recipe for target $(target_var))
+endef
+
+# -- User Interface (UI) -- #
+
+# $(call user-msg,outcome-status,msg)
+# Prints a specially formatted message for user communication purposes.  User
+# messages show the outcome status of a command or test.
+define user-msg
+echo "$2...$1."
 endef
