@@ -11,7 +11,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-10-21
+# REVISED: 2020-10-23
 # =========================================================================== #
 
 
@@ -30,7 +30,7 @@ LOG := make.log
 LOGGING ?= false
 
 # Conditionally set where to direct standard output/error.
-STDOUT ?= >$(LOG) 2>&1
+STDOUT ?= >>$(LOG) 2>&1
 
 
 # =========================================================================== #

@@ -11,7 +11,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-10-21
+# REVISED: 2020-10-23
 # =========================================================================== #
 
 
@@ -41,15 +41,6 @@ FG_CYAN := $(ESC)[0;36m
 FG_GREEN := $(ESC)[0;32m
 FG_RED := $(ESC)[0;31m
 FG_YELLOW := $(ESC)[1;33m
-
-# -- Formatted Strings -- #
-
-# Color-formatted outcome statuses, each of which is based on the return code
-# ($$?) of having run a shell command.
-DONE := $(FG_GREEN)done$(RESET).
-FAILED := $(FG_RED)failed$(RESET).
-IGNORE := $(FG_YELLOW)ignore$(RESET).
-PASSED := $(FG_GREEN)passed$(RESET).
 
 
 # =========================================================================== #

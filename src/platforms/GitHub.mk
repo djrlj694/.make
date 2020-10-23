@@ -12,7 +12,7 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-28
-# REVISED: 2020-10-22
+# REVISED: 2020-10-23
 # =========================================================================== #
 
 
@@ -75,7 +75,7 @@ clean-github: clean-docs-github
 clean-docs-github: | $(LOG)
 	@$(call recipe-start-msg)
 	@$(RM) .github $(STDOUT); \
-	$(call rc-msg,Removing GitHub documents)
+	$(call cmd-msg,Removing GitHub documents)
 	@$(call recipe-end-msg)
 
 # -- Prerequisite for "docs" Target -- #
@@ -95,5 +95,5 @@ docs-github: $(GITHUB_FILES)
 init-github:
 	@$(call recipe-start-msg)
 	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
-	$(call rc-msg,Initializing GitHub repository)
+	$(call cmd-msg,Initializing GitHub repository)
 	@$(call recipe-end-msg)
