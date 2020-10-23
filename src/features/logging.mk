@@ -54,7 +54,7 @@ log: $(LOG)
 # =========================================================================== #
 
 
-.INTERMEDIATE: $(LOG)
+#.INTERMEDIATE: $(LOG)
 
 # Makes a temporary file capturring a shell command error.
 $(LOG):
