@@ -27,45 +27,19 @@
 ERROR := $(FG_RED)ERROR$(RESET)
 FATAL := $(FG_RED)FATAL$(RESET)
 INFO := $(FG_GREEN)INFO$(RESET)
-PASSED := $(FG_GREEN)PASSED$(RESET)
 WARN := $(FG_YELLOW)WARN$(RESET)
 
 # Color-formatted outcome statuses.
-DONE := $(FG_GREEN)done$(RESET).
-FAILED := $(FG_RED)failed$(RESET).
-IGNORE := $(FG_YELLOW)ignore$(RESET).
-PASSED := $(FG_GREEN)passed$(RESET).
+DONE := $(FG_GREEN)done$(RESET)
+FAILED := $(FG_RED)failed$(RESET)
+IGNORE := $(FG_YELLOW)ignore$(RESET)
+PASSED := $(FG_GREEN)passed$(RESET)
 
 
 # =========================================================================== #
 # USER-DEFINED FUNCTIONS
 # =========================================================================== #
 
-
-# -- Error Capture -- #
-
-# $(call cmd-msg,msg)
-# =========================================================================== #
-# Prints messages, based on the return code ($?) from a previously run
-# command.
-define cmd-msg
-if [ $$? -eq 0 ]; then \
-$(call log-msg,$(INFO),$2); $(call user-msg,$(DONE),$2); \
-else \
-$(call log-msg,$(ERROR),$2); $(call user-msg,$(FAILED),$2); \
-fi
-endef
-
-# $(call test-msg,msg)
-# Prints messages, based on the return code ($?) from a previously run test.
-# command or test.
-define test-msg
-if [ $$? -eq 0 ]; then \
-$(call log-msg,$(INFO),$2); $(call user-msg,$(PASSED),$2); \
-else \
-$(call log-msg,$(WARN),$2); $(call user-msg,$(FAILED),$2); \
-fi
-endef
 
 # -- Logging -- #
 
@@ -101,4 +75,28 @@ endef
 # messages show the outcome status of a command or test.
 define user-msg
 echo "$2...$1."
+endef
+
+# -- Error Capture -- #
+
+# $(call cmd-msg,msg)
+# Prints messages, based on the return code ($?) from a previously run
+# command.
+define cmd-msg
+if [ $$? -eq 0 ]; then \
+$(call log-msg,$(INFO),$2); $(call user-msg,$(DONE),$2); \
+else \
+$(call log-msg,$(ERROR),$2); $(call user-msg,$(FAILED),$2); \
+fi
+endef
+
+# $(call test-msg,msg)
+# Prints messages, based on the return code ($?) from a previously run test.
+# command or test.
+define test-msg
+if [ $$? -eq 0 ]; then \
+$(call log-msg,$(INFO),$2); $(call user-msg,$(PASSED),$2); \
+else \
+$(call log-msg,$(WARN),$2); $(call user-msg,$(FAILED),$2); \
+fi
 endef
