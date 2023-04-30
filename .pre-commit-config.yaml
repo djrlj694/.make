@@ -1,9 +1,29 @@
+# .pre-commit-config.yaml
+# .make
+#
+# The `pre-commit` CLI tool configuration file.
+# Describes what Git repositories and Git hook scripts are installed for
+# identifying simple issues (missing semicolons, trailing whitespace, debug
+# statements, etc.) before submission to code review, allowing a code reviewer
+# to focus on the architecture of a change while not wasting time with trivial
+# style nitpicks.
+# See https://pre-commit.com/index.html#plugins.
+#
+# REFERENCES:
+# 1. https://pre-commit.com/hooks.html
+
+
+# Check for issues or automatically fix issues.
 repos:
+
+  ## Git
   - repo: https://github.com/commitizen-tools/commitizen
     rev: 3.1.1
     hooks:
       - id: commitizen
         stages: [commit-msg]
+
+  ## Git, Polyglot
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -17,6 +37,8 @@ repos:
       - id: name-tests-test
       - id: sort-simple-yaml
       - id: trailing-whitespace
+
+  ## Make
   # - repo: https://github.com/Lucas-C/pre-commit-hooks-go
   #   rev: v1.0.1
   #   hooks:
