@@ -16,6 +16,12 @@
 # Check for issues or automatically fix issues.
 repos:
 
+  ## Pre-commit
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
+
   ## Git
   - repo: https://github.com/commitizen-tools/commitizen
     rev: 3.1.1
@@ -28,14 +34,37 @@ repos:
     rev: v4.4.0
     hooks:
       - id: check-added-large-files
-      - id: check-builtin-literals
+      # - id: check-ast
+      # - id: check-builtin-literals
+      - id: check-byte-order-marker
+      # - id: check-docstring-first
+      # - id: check-executables-have-shebangs
+      # - id: check-json
       - id: check-merge-conflict
-      - id: check-toml
+      - id: check-shebang-scripts-are-executable
+      # - id: check-symlinks
+      # - id: check-toml
+      - id: check-vcs-permalinks
+      # - id: check-xml
       - id: check-yaml
+      # - id: debug-statements
+      - id: destroyed-symlinks
+      # - id: detect-aws-credentials
       - id: detect-private-key
+      # - id: double-quote-string-fixer
       - id: end-of-file-fixer
-      - id: name-tests-test
-      - id: sort-simple-yaml
+      # - id: file-contents-sorter
+      - id: fix-byte-order-marker
+      # - id: fix-encoding-pragma
+      #   args: [--remove]
+      # - id: forbid-new-submodules
+      - id: mixed-line-ending
+      # - id: name-tests-test
+      - id: no-commit-to-branch
+      # - id: pretty-format-json
+      #   args: [--autofix, --no-sort-keys]
+      # - id: requirements-txt-fixer
+      # - id: sort-simple-yaml
       - id: trailing-whitespace
 
   ## Make
