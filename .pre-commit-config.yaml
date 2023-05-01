@@ -1,17 +1,30 @@
 # .pre-commit-config.yaml
 # .make
 #
-# The `pre-commit` CLI tool configuration file.
-# Describes what Git repositories and Git hook scripts are installed for
-# identifying simple issues (missing semicolons, trailing whitespace, debug
-# statements, etc.) before submission to code review, allowing a code reviewer
-# to focus on the architecture of a change while not wasting time with trivial
-# style nitpicks.
-# See https://pre-commit.com/index.html#plugins.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
+# The pre-commit multi-language package manager configuration file for Git
+# pre-commit hook scripts (i.e., hooks). Specifies which pre-commit plugins
+# (each by Git repository and hook set) are installed and set for identifying
+# simple issues (missing semicolons, trailing whitespace, debug statements,
+# etc.) before submission to code review. Allows code reviewers to focus on the
+# architecture of a change while not wasting time with trivial style nitpicks.
 #
 # REFERENCES:
 # 1. https://pre-commit.com/hooks.html
+# 2. https://pre-commit.com/index.html#plugins
 
+
+# All commands by default will run on every commit.
+default_install_hook_types:
+  - pre-commit
+
+default_stages:
+  - commit
+  - push
+
+# Some configs are only available after v2.16
+minimum_pre_commit_version: '2.16'
 
 # Check for issues or automatically fix issues.
 repos:
