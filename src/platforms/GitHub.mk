@@ -1,19 +1,14 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: GitHub.mk
+# GitHub.mk
+# .make
 #
-# PURPOSE:
-# To facilitate GitHub-hosted remote Git repository ("repo") initialization,
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
+# Facilitate GitHub-hosted remote Git repository ("repo") initialization,
 # setup, and cleanup.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
-#
-# CREATED: 2020-09-28
-# REVISED: 2020-10-23
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
