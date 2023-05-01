@@ -1,3 +1,17 @@
+# .gitignore
+# .make
+#
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
+# An optional Git text file. Specifies intentionally untracked files that Git
+# should ignore, where each line specifies a pattern.
+#
+# REFERENCES:
+# 1. https://fileinfo.com/extension/gitignore
+# 2. https://git-scm.com/docs/gitignore
+# 3. https://gitignore.io
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/dropbox,emacs,linux,macos,vim,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=dropbox,emacs,linux,macos,vim,visualstudiocode
 
