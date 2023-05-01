@@ -20,14 +20,6 @@
 # Argument syntax for the "make" command.
 MAKE_ARGS := [$(FG_CYAN)<target>$(RESET)]
 
-
-# =========================================================================== #
-# INTERNAL VARIABLES
-# =========================================================================== #
-
-
-# -- Help Strings -- #
-
 # "Targets" section line item of the "make" command's online help.
 target_help = $(FG_CYAN)%-17s$(RESET) %s
 
