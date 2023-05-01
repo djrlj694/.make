@@ -37,12 +37,6 @@ FG_GREEN := $(ESC)[0;32m
 FG_RED := $(ESC)[0;31m
 FG_YELLOW := $(ESC)[1;33m
 
-
-# =========================================================================== #
-# INTERNAL VARIABLES
-# =========================================================================== #
-
-
 # -- Formatted Strings -- #
 
 # Color-formatted names of filesystem paths.
