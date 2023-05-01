@@ -14,7 +14,6 @@
 # INTERNAL VARIABLES
 # =========================================================================== #
 
-
 # -- Special Characters -- #
 
 # C-style octal code representing an ASCII escape character.

@@ -15,7 +15,6 @@
 # EXTERNAL VARIABLES
 # =========================================================================== #
 
-
 # -- Source Code Management (SCM) -- #
 
 # Default branch.  (Historically, this was `master` but is now `main`.)
@@ -28,7 +27,6 @@ TOOLCHAIN ?= dropbox,macos,vim,visualstudiocode,windows
 # =========================================================================== #
 # INTERNAL VARIABLES
 # =========================================================================== #
-
 
 # -- Commands -- #
 
@@ -65,7 +63,6 @@ GIT_REMOTE := git remote $(V)
 # =========================================================================== #
 # USER-DEFINED FUNCTIONS
 # =========================================================================== #
-
 
 # -- Source Code Management (SCM) -- #
 
@@ -185,7 +182,6 @@ endef
 # PHONY TARGETS
 # =========================================================================== #
 
-
 # -- Prerequisite for "clean" Target -- #
 
 #.PHONY: clean-git release-git
@@ -240,7 +236,6 @@ init-git-flow: | $(LOG)
 # =========================================================================== #
 # DIRECTORY TARGETS
 # =========================================================================== #
-
 
 ## .git: Makes a Git repository.
 .git: | $(LOG)
