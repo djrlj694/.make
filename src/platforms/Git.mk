@@ -1,19 +1,14 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: Git.mk
+# Git.mk
+# .make
 #
-# PURPOSE:
-# To facilitate local Git repository ("repo") initialization, setup, and
-# cleanup.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
 #
-# CREATED: 2020-10-01
-# REVISED: 2020-10-23
-# =========================================================================== #
+# Facilitate local Git repository ("repo") initialization, setup, and cleanup.
+#
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #

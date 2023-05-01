@@ -1,19 +1,14 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: messages.mk
+# messages.mk
+# .make
 #
-# PURPOSE:
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
 # To standardize how messages to standard out (STDOUT) / error (STDERR) are
 # formatted.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
-#
-# CREATED: 2020-10-21
-# REVISED: 2020-10-23
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #

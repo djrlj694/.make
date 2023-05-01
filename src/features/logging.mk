@@ -1,18 +1,13 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: logging.mk
+# logging.mk
+# .make
 #
-# PURPOSE:
-# To facilitate logging for makefile projects.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Facilitate logging for makefile projects.
 #
-# CREATED: 2020-09-25
-# REVISED: 2020-10-23
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #

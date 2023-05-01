@@ -1,18 +1,13 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: debugging.mk
+# debugging.mk
+# .make
 #
-# PURPOSE:
-# To facilitate the debugging of makefile projects.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Facilitates the debugging of makefile projects.
 #
-# CREATED: 2020-09-25
-# REVISED: 2020-10-15
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #

@@ -1,19 +1,14 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: custom.mk
+# custom.mk
+# .make
 #
-# PURPOSE:
-# To decouple dependency inclusion from the main makefile.  Note that these
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
+# Decouples dependency inclusion from the main makefile.  Note that these
 # dependencies must proceed in the order specified below.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
-#
-# CREATED: 2020-10-22
-# REVISED: 2020-10-22
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
