@@ -1,24 +1,18 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: Python.mk
+# Python.mk
+# .make
 #
-# PURPOSE:
-# To facilitate Python project initialization, setup, and cleanup.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Facilitate Python project initialization, setup, and cleanup.
 #
-# CREATED: 2020-09-30
-# REVISED: 2020-09-30
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
 # PHONY TARGETS
 # =========================================================================== #
-
 
 # -- Prerequisites for "clean" Target -- #
 

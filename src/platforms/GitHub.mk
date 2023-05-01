@@ -1,25 +1,19 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: GitHub.mk
+# GitHub.mk
+# .make
 #
-# PURPOSE:
-# To facilitate GitHub-hosted remote Git repository ("repo") initialization,
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
+# Facilitate GitHub-hosted remote Git repository ("repo") initialization,
 # setup, and cleanup.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
-#
-# CREATED: 2020-09-28
-# REVISED: 2020-09-30
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
-# EXTERNAL CONSTANTS
+# EXTERNAL VARIABLES
 # =========================================================================== #
-
 
 # -- Accounts -- #
 
@@ -36,9 +30,8 @@ GH_PRIVATE ?= true
 
 
 # ============================================================================ #
-# INTERNAL CONSTANTS
+# INTERNAL VARIABLES
 # ============================================================================ #
-
 
 # -- Source Code Management (SCM) -- #
 
@@ -61,19 +54,21 @@ endif
 # PHONY TARGETS
 # =========================================================================== #
 
-
 # -- Prerequisites for "clean" Target -- #
 
 .PHONY: clean-github clean-docs-github
 
 ## clean-github: Completes all GitHub cleanup activities.
 clean-github: clean-docs-github
+	@$(call recipe-start-msg)
+	@$(call recipe-end-msg)
 
 ## clean-docs-github: Completes all GitHub Markdown cleanup activities.
 clean-docs-github: | $(LOG)
-	@printf "Removing GitHub documents..."
-	@$(RM) .github >$(LOG) 2>&1; \
-	$(status_result)
+	@$(call recipe-start-msg)
+	@$(RM) .github $(STDOUT); \
+	$(call cmd-msg,Removing GitHub documents)
+	@$(call recipe-end-msg)
 
 # -- Prerequisite for "docs" Target -- #
 
@@ -81,6 +76,8 @@ clean-docs-github: | $(LOG)
 
 ## docs-github: Completes all GitHub document generation activites.
 docs-github: $(GITHUB_FILES)
+	@$(call recipe-start-msg)
+	@$(call recipe-end-msg)
 
 # -- Prerequisites for "init" Target -- #
 
@@ -88,6 +85,7 @@ docs-github: $(GITHUB_FILES)
 
 ## init-github: Completes all initial Github setup activites.
 init-github:
-	$(eval msg = Initializing GitHub repository)
+	@$(call recipe-start-msg)
 	@$(CURL) --user $(GH_USER) --data '{$(GH_DATA)}' $(GH_API_URL); \
-	$(call step,$(msg),$(DONE))
+	$(call cmd-msg,Initializing GitHub repository)
+	@$(call recipe-end-msg)

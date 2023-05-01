@@ -1,24 +1,18 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: formatting.mk
+# formatting.mk
+# .make
 #
-# PURPOSE:
-# To facilitate string formatting.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Facilitate string formatting.
 #
-# CREATED: 2020-09-25
-# REVISED: 2020-09-30
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
-# INTERNAL CONSTANTS
+# INTERNAL VARIABLES
 # =========================================================================== #
-
 
 # -- Special Characters -- #
 
@@ -41,12 +35,6 @@ FG_CYAN := $(ESC)[0;36m
 FG_GREEN := $(ESC)[0;32m
 FG_RED := $(ESC)[0;31m
 FG_YELLOW := $(ESC)[1;33m
-
-
-# =========================================================================== #
-# INTERNAL VARIABLES
-# =========================================================================== #
-
 
 # -- Formatted Strings -- #
 

@@ -1,34 +1,36 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: logging.mk
+# logging.mk
+# .make
 #
-# PURPOSE:
-# To facilitate logging for makefile projects.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Facilitate logging for makefile projects.
 #
-# CREATED: 2020-09-25
-# REVISED: 2020-09-30
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
-# INTERNAL CONSTANTS
+# EXTERNAL VARIABLES
 # =========================================================================== #
-
 
 # -- Filesystem -- #
 
+# Conditionally set the name of the log file.
 LOG := make.log
+
+# -- Logging -- #
+
+# Conditionally set the flag for logging: true or false.
+LOGGING ?= false
+
+# Conditionally set where to direct standard output/error.
+STDOUT ?= >>$(LOG) 2>&1
 
 
 # =========================================================================== #
 # PHONY TARGETS
 # =========================================================================== #
-
 
 # -- Main Targets -- #
 
@@ -45,8 +47,7 @@ log: $(LOG)
 # INTERMEDIATE TARGETS
 # =========================================================================== #
 
-
-.INTERMEDIATE: $(LOG)
+#.INTERMEDIATE: $(LOG)
 
 # Makes a temporary file capturring a shell command error.
 $(LOG):

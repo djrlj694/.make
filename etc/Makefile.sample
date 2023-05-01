@@ -17,12 +17,12 @@
 # 1. Robert (Bob) L. Jones
 #
 # CREATED: 2020-09-25
-# REVISED: 2020-10-01
+# REVISED: 2020-10-22
 # =========================================================================== #
 
 
 # =========================================================================== #
-# EXTERNAL CONSTANTS
+# EXTERNAL VARIABLES
 # =========================================================================== #
 
 
@@ -53,30 +53,8 @@ all: help
 
 
 # =========================================================================== #
-# FEATURE DEPENDENCIES
+# INCLUDES
 # =========================================================================== #
 
 
--include $(MAKE_DIR)src/features/formatting.mk
-
--include $(MAKE_DIR)src/features/debugging.mk
--include $(MAKE_DIR)src/features/helping.mk
--include $(MAKE_DIR)src/features/logging.mk
-
-
-# =========================================================================== #
-# UTILITY DEPENDENCIES
-# =========================================================================== #
-
-
--include $(MAKE_DIR)src/utilities/commands.mk
-
-
-# =========================================================================== #
-# PLATFORM DEPENDENCIES
-# =========================================================================== #
-
-
--include $(MAKE_DIR)src/platforms/Git.mk
--include $(MAKE_DIR)src/platforms/GitHub.mk
--include $(MAKE_DIR)src/platforms/Python.mk
+-include $(MAKE_DIR)src/custom.mk

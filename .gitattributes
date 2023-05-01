@@ -1,2 +1,14 @@
+# .gitattributes
+# .make
+#
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
+# An optional Git text file. Defines attributes per pathname.
+#
+# REFERENCES:
+# 1. https://fileinfo.com/extension/gitattributes
+# 2. https://git-scm.com/docs/gitattributes
+
+
 # Auto detect text files and perform LF normalization
 * text=auto

@@ -1,25 +1,19 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: commands.mk
+# commands.mk
+# .make
 #
-# PURPOSE:
-# To reduce shell command verbosity via constants representing prefixes to
-# such commands.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Reduces shell command verbosity via constants representing prefixes to such
+# commands.
 #
-# CREATED: 2020-09-26
-# REVISED: 2020-10-08
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
-# INTERNAL CONSTANTS
+# INTERNAL VARIABLES
 # =========================================================================== #
-
 
 # -- Commands -- #
 

@@ -1,91 +1,39 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: debugging.mk
+# debugging.mk
+# .make
 #
-# PURPOSE:
-# To facilitate the debugging of makefile projects.
+# Copyright © 2023 djrlj694.dev. All rights reserved.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
+# Facilitates the debugging of makefile projects.
 #
-# CREATED: 2020-09-25
-# REVISED: 2020-10-08
-# =========================================================================== #
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
-# EXTERNAL CONSTANTS
+# EXTERNAL VARIABLES
 # =========================================================================== #
 
-
-# -- Debugging & Error Capture -- #
+# -- Debugging -- #
 
 # 0 = false, 1 = true
 VERBOSE ?= 0
 
 
 # =========================================================================== #
-# INTERNAL CONSTANTS
+# INTERNAL VARIABLES
 # =========================================================================== #
 
-
-# -- Debugging & Error Capture -- #
+# -- Debugging -- #
 
 # A list of makefile variables to show when testing/debugging.
 VARIABLES_TO_SHOW := MAKE_DIR MAKEFILE MAKEFILE_DIR MAKEFILE_LIST
 VARIABLES_TO_SHOW += PWD VERBOSE
 
-# -- Result Strings -- #
-
-# Color-formatted outcome statuses, each of which is based on the return code
-# ($$?) of having run a shell command.
-DONE := $(FG_GREEN)done$(RESET).
-FAILED := $(FG_RED)failed$(RESET).
-IGNORE := $(FG_YELLOW)ignore$(RESET).
-PASSED := $(FG_GREEN)passed$(RESET).
-
-
-# =========================================================================== #
-# INTERNAL VARIABLES
-# =========================================================================== #
-
-
-# -- Debugging & Error Capture -- #
-
-status_result = $(call result,$(DONE)\n)
-test_result = $(call result,$(PASSED)\n)
-
-
-# =========================================================================== #
-# USER-DEFINED FUNCTIONS
-# =========================================================================== #
-
-
-# -- Debugging & Error Capture -- #
-
-# $(call result,success-string)
-# Prints a success string ($DONE or $PASSED) if the most recent return code
-# ($$?) value equals 0; otherwise, prints a failure string ($FAILED) and the
-# associated error message.
-define result
-	([ $$? -eq 0 ] && printf "$1") || \
-	(printf "$(FAILED)\n" && cat $(LOG) && echo)
-endef
-
-# $(call step,msg,success-string)
-# Prints a success string ($DONE or $PASSED) if the most recent return code
-# ($$?) value equals 0; otherwise, prints a failure string ($FAILED).
-define step
-	[ $$? -eq 0 ] && echo "$1...$2" || echo "$1...$(FAILED)"
-endef
-
 
 # =========================================================================== #
 # PHONY TARGETS
 # =========================================================================== #
-
 
 # -- Main Targets -- #
 

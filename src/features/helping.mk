@@ -1,37 +1,23 @@
-#!/usr/bin/make -f
-# =========================================================================== #
-# Copyright © 2020 djrlj694.dev. All rights reserved.
-# =========================================================================== #
-# PROGRAM: helping.mk
+# helping.mk
+# .make
 #
-# PURPOSE:
+# Copyright © 2023 djrlj694.dev. All rights reserved.
+#
 # To facilitate command-line interface (CLI) for makefile projects.
 #
-# AUTHORS:
-# 1. Robert (Bob) L. Jones
-#
-# CREATED: 2020-09-25
-# REVISED: 2020-09-30
-# =========================================================================== #
-
-
-# =========================================================================== #
-# INTERNAL CONSTANTS
-# =========================================================================== #
-
-
-# -- Help Strings -- #
-
-# Argument syntax for the "make" command.
-MAKE_ARGS := [$(FG_CYAN)<target>$(RESET)]
+# REFERENCES:
+# 1. https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html
+# 2. https://www.gnu.org/software/make/
 
 
 # =========================================================================== #
 # INTERNAL VARIABLES
 # =========================================================================== #
 
-
 # -- Help Strings -- #
+
+# Argument syntax for the "make" command.
+MAKE_ARGS := [$(FG_CYAN)<target>$(RESET)]
 
 # "Targets" section line item of the "make" command's online help.
 target_help = $(FG_CYAN)%-17s$(RESET) %s
@@ -40,7 +26,6 @@ target_help = $(FG_CYAN)%-17s$(RESET) %s
 # =========================================================================== #
 # MACROS
 # =========================================================================== #
-
 
 # -- Help Strings -- #
 
@@ -65,7 +50,6 @@ export usage_help
 # =========================================================================== #
 # PHONY TARGETS
 # =========================================================================== #
-
 
 # -- Main Targets -- #
 
